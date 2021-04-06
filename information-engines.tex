@@ -188,25 +188,30 @@ which is lower bounded by,
 \]
 giving us a lower bound on the expected log intelligence ratio, where the expectation is taken under the variational distribution. Maximising this lower bound implies maximising the entropy of $r(\dataVariables)$. Unfortunately, the entropy is unbounded. Which implies that the expected intelligence ratio under a general distribution $r(\dataVariables)$ is also unbounded. We need more constraints on $r(\cdot)$ to make progress. 
 
-We can upper bound the intelligence ratio by \emph{lower bounding} $\log \trueProb(\dataVariables)$. Consider the following equality,
+We can rewrite $\log \physicsProb(\dataVariables)$ as
 \begin{align*}
-    \frac{1}{\beta}\log \trueProb(\dataVariables) & = \expDist{\trueProb(\dataVariables, \stateVariables)}{r(\stateVariables )} + Tk_B \expDist{\log r(\stateVariables)}{r(\stateVariables)} +  T\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))\\
-    & = \expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)} + \expDist{E(\stateVariables)}{r(\stateVariables)} - \frac{1}{\beta} \log Z_{\stateVariables,\dataVariables} + Tk_B \expDist{\log r(\stateVariables)}{r(\stateVariables)} +  Tk_B\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
+    \log \trueProb(\dataVariables) & = \expDist{\trueProb(\dataVariables, \stateVariables)}{r(\stateVariables )} +  \expDist{\log r(\stateVariables)}{r(\stateVariables)} +  \text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))\\
+    & = -\beta\expDist{ E(\dataVariables | \stateVariables)}{r(\stateVariables)}  -\beta\expDist{E(\stateVariables)}{r(\stateVariables)} - \log Z_{\stateVariables,\dataVariables} + \expDist{\log r(\stateVariables)}{r(\stateVariables)} +  \text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
 \end{align*}
 and now note that
 \[
-- \frac{1}{\beta} \log Z_{\stateVariables,\dataVariables} = \expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)\trueProb(\dataVariables)} + \expDist{E(\stateVariables)}{r(\stateVariables )\trueProb(\dataVariables)} - TS_\dataVariables -Tk_B \expDist{\log r(\stateVariables)}{r(\stateVariables)} - 
+-  \log Z_{\stateVariables,\dataVariables} = \beta\expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)\trueProb(\dataVariables)} + \beta\expDist{E(\stateVariables)}{r(\stateVariables )} - k_B^{-1}S_\dataVariables -\expDist{\log r(\stateVariables)}{r(\stateVariables)} - \expDist{\text{KL}(r(\stateVariables) || \trueProb(\stateVariables | \dataVariables))}{\trueProb(\dataVariables)}
 \]
-and we define
+if we now define
 \[
-\physicsProb(\dataVariables) = \frac{\exp(-\beta \expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)}}{Z^\prime_\dataVariables}
+\physicsProb(\dataVariables) = \frac{\exp\left(-\beta \expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)}\right)}{Z^\prime_\dataVariables}
 \]
 then we can write
 \[
-\frac{1}{\beta}\log \trueProb(\dataVariables) = \frac{1}{\beta}\log \physicsProb(\dataVariables) + T\left(S^\prime_{\stateVariables|\dataVariables} - \expDist{S^\prime_{\stateVariables|\dataVariables}}{\trueProb(\dataVariables)}\right) 
+\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables)  + \text{KL}(\trueProb(\dataVariables)||\physicsProb(\dataVariables))  + \text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) - \expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}. 
 \]
-bound on Maximizing this expectation alone gives us a false impression of the intelligence ratio, because we merely end up selecting a variational distribution $r(\dataVariables)$, which while it is a lower bound on the expected log ratio, th However, maximizing this bound alone is not enough to  
-First weupper bound the intelligence ratio by upper bounding
+or finally we can show that
+\[
+\log \trueProb(\dataVariables) \geq \log \physicsProb(\dataVariables) - \expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
+\]
+Maximizing this lower bound is achieved through minimizing $\expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}$, in other words, finding a variational distribution which represents how the microstates behave correctly. 
+
+We can see the variational distribution, $r(\stateVariables)$, as representing society's best understanding of physical laws. 
 
 \subsection{Apparent Available Energy}
 
