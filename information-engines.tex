@@ -178,6 +178,36 @@ and we can also consider the expected available energy change,
 \]
 Now we are faced with the problem of approximating the available energy because we don't have direct access to $\trueProb(\dataVariables)$.
 
+Our first approach will be to lower bound the expected intelligence ratio. Introducing a variational distribution $r(\dataVariables)$, and considering the expected log intelligence ratio under this distribution we have,
+\[
+\expDist{\log I}{r(\dataVariables)}   = - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log \trueProb(\dataVariables)}{r(\dataVariables)}
+\]
+which is lower bounded by,
+\[
+\expDist{\log I}{r(\dataVariables)}   = - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log r(\dataVariables)}{r(\dataVariables)},
+\]
+giving us a lower bound on the expected log intelligence ratio, where the expectation is taken under the variational distribution. Maximising this lower bound implies maximising the entropy of $r(\dataVariables)$. Unfortunately, the entropy is unbounded. Which implies that the expected intelligence ratio under a general distribution $r(\dataVariables)$ is also unbounded. We need more constraints on $r(\cdot)$ to make progress. 
+
+We can upper bound the intelligence ratio by \emph{lower bounding} $\log \trueProb(\dataVariables)$. Consider the following equality,
+\begin{align*}
+    \frac{1}{\beta}\log \trueProb(\dataVariables) & = \expDist{\trueProb(\dataVariables, \stateVariables)}{r(\stateVariables )} + Tk_B \expDist{\log r(\stateVariables)}{r(\stateVariables)} +  T\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))\\
+    & = \expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)} + \expDist{E(\stateVariables)}{r(\stateVariables)} - \frac{1}{\beta} \log Z_{\stateVariables,\dataVariables} + Tk_B \expDist{\log r(\stateVariables)}{r(\stateVariables)} +  Tk_B\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
+\end{align*}
+and now note that
+\[
+- \frac{1}{\beta} \log Z_{\stateVariables,\dataVariables} = \expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)\trueProb(\dataVariables)} + \expDist{E(\stateVariables)}{r(\stateVariables )\trueProb(\dataVariables)} - TS_\dataVariables -Tk_B \expDist{\log r(\stateVariables)}{r(\stateVariables)} - 
+\]
+and we define
+\[
+\physicsProb(\dataVariables) = \frac{\exp(-\beta \expDist{E(\dataVariables | \stateVariables)}{r(\stateVariables)}}{Z^\prime_\dataVariables}
+\]
+then we can write
+\[
+\frac{1}{\beta}\log \trueProb(\dataVariables) = \frac{1}{\beta}\log \physicsProb(\dataVariables) + T\left(S^\prime_{\stateVariables|\dataVariables} - \expDist{S^\prime_{\stateVariables|\dataVariables}}{\trueProb(\dataVariables)}\right) 
+\]
+bound on Maximizing this expectation alone gives us a false impression of the intelligence ratio, because we merely end up selecting a variational distribution $r(\dataVariables)$, which while it is a lower bound on the expected log ratio, th However, maximizing this bound alone is not enough to  
+First weupper bound the intelligence ratio by upper bounding
+
 \subsection{Apparent Available Energy}
 
 In practice, we don't know (precisely) the energies, relationships,
