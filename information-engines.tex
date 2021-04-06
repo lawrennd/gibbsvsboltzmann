@@ -183,9 +183,9 @@ Our first approach will be to lower bound the expected intelligence ratio. Intro
 \expDist{\log I}{r(\dataVariables)}   = - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log \trueProb(\dataVariables)}{r(\dataVariables)}
 \]
 which is lower bounded by,
-\[
-\expDist{\log I}{r(\dataVariables)}   = - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log r(\dataVariables)}{r(\dataVariables)},
-\]
+\begin{equation}
+\expDist{\log I}{r(\dataVariables)}   \geq - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log r(\dataVariables)}{r(\dataVariables)}, \label{eqn-lir-lower}
+\end{equation}
 giving us a lower bound on the expected log intelligence ratio, where the expectation is taken under the variational distribution. Maximising this lower bound implies maximising the entropy of $r(\dataVariables)$. Unfortunately, the entropy is unbounded. Which implies that the expected intelligence ratio under a general distribution $r(\dataVariables)$ is also unbounded. We need more constraints on $r(\cdot)$ to make progress. 
 
 We can rewrite $\log \physicsProb(\dataVariables)$ as
@@ -209,9 +209,19 @@ or finally we can show that
 \[
 \log \trueProb(\dataVariables) \geq \log \physicsProb(\dataVariables) - \expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
 \]
-Maximizing this lower bound is achieved through minimizing $\expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}$, in other words, finding a variational distribution which represents how the microstates behave correctly. 
-
-We can see the variational distribution, $r(\stateVariables)$, as representing society's best understanding of physical laws. 
+Maximizing this lower bound is achieved through minimizing $\expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}$, in other words, finding a variational distribution which represents how the microstates behave correctly. Maximising this bound improves the physical plausibility of the model. We call $r(\stateVariables)$ the \emph{simulation} and we call $\exp{ \expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}}$ the simulation fidelity, $F$,
+\[
+\log F = -\expDist{\text{KL}(r(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}
+\]
+This in turn gives us an upper bound on our log intelligence ratio,
+\[
+\log I \leq -\beta E(\measuredVariables_\dataVariables = \textbf{1}) -\log \physicsProb(\dataVariables) - \log F.
+\]
+and if we consider the expected log intelligence ratio,
+\[
+\expDist{\log I}{\physicsProb(\dataVariables)} \leq -\beta E(\measuredVariables_\dataVariables = \textbf{1}) -\expDist{\log \physicsProb(\dataVariables)}{\physicsProb(\dataVariables)} - \log F.
+\]
+then we can see the gap between our lower bound from \ref{eqn-lir-lower} is precisely given by the negative logarithm of the simulation fidelity, $\log F$. If we maximize fidelity, then we can obtain a tight approximation to the intelligence ratio.
 
 \subsection{Apparent Available Energy}
 
