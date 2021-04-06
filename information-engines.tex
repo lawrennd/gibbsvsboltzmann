@@ -34,7 +34,7 @@
 
 \section{Introduction}
 
-This paper attempts to understand the limitations on predictive modelling by taking a thermodynamic perspective. In particular, is there a particular definition of intelligence that we can characterise mathematically and then explore the limtis of what might be possible inspired by physical limitations imposed by the underlying statistical physics.
+This paper attempts to understand the limitations on predictive modelling by taking a thermodynamic perspective. In particular, is there a particular definition of intelligence that we can characterise mathematically and then explore the limits of what might be possible inspired by physical limitations imposed by the underlying statistical physics.
 
 Because the paper bridges some different fields, and tries to equate thermodynamic and information theoretic terms with words that are widely used in modelling, it may be seen as abusing terminology in parts. So to clarify at the outset, we are using some general terms in very specific ways. 
 
@@ -52,7 +52,7 @@ The partition function is then given by
 \[
 Z_\phaseVariables = \sum_\phaseVariables \exp(-\beta E(\phaseVariables)),
 \] 
-where the \(Z\) comes from the German for "sum over states" or \emph{Zustandssumme}, reflecting Boltzmann's Austrian heritage. In the case of continuous systems we have, 
+where the \(Z\) comes from the German for ``sum over states'' or \emph{Zustandssumme}, reflecting Boltzmann's Austrian heritage. In the case of continuous systems we have, 
 \[
 Z_{\phaseVariables} = \frac{1}{h^3}\int \exp(-\beta E(\phaseVariables)) \text{d} \phaseVariables
 \] 
@@ -82,7 +82,7 @@ This equation expresses a fundamental decomposition of the total energy
 into the available energy, \(A_\phaseVariables\) and energy that is not
 available, \(TS_\phaseVariables\).
 
-\subsection{Intelligence and Energy}
+\subsection{Intelligence and Energy} \label{sec-intelligence-and-energy}
 
 We define an intelligent decision to be one that achieves a desired
 change of state in our system with the minimum use of resource. In
@@ -152,7 +152,7 @@ We can examine how this changes the free energy, the energy gain through
 observation is, 
 \begin{align*}
 A_{\stateVariables|\dataVariables} - A_{\stateVariables,\dataVariables} = & -\frac{1}{\beta} \log \frac{Z_{\stateVariables|\dataVariables}}{Z_{\stateVariables,\dataVariables}}\\
-& -T k_B \log \trueProb(\dataVariables)
+& -\frac{1}{\beta} \log \trueProb(\dataVariables)
 \end{align*}
 which is the information gained through the observation, \(\dataVariables\). This needs to be traded off against the cost of observing given by $E(\measuredVariables_\dataVariables=\mathbf{1}) $.
 
@@ -163,14 +163,18 @@ We can define a dimensionless quotient the intelligence of an action (where acti
 I = \frac{\exp(-\beta E(\measuredVariables_\dataVariables=\mathbf{1}))}{\trueProb(\dataVariables)},\]
 where $\beta$ is the thermodynamic temperature \(\beta = \frac{1}{Tk_B}\).
 
-This allows us to express the available energy change as a result of an action in terms of the intelligent quotient as follows,
+This allows us to express the available energy change as a result of an action in terms of the intelligence ratio as follows,
 \[
 \Delta E = T k_B\log I,
 \]
+so we see that the log intelligence ratio is a critical quantity. 
+
+Since we need to make our decisions about which variables to observe before we know their values, we can only consider this ratio in expectation.
 and we can also consider the expected available energy change,
 \[
 \expDist{\Delta E}{\trueProb(\dataVariables)} = T k_B\expDist{\log I}{\trueProb(\dataVariables)}.
 \]
+Now we are faced with the problem of approximating the available energy because we don't have direct access to $\trueProb(\dataVariables)$.
 
 \subsection{Apparent Available Energy}
 
@@ -196,10 +200,9 @@ Introducing the simulation distribution we rewrite the available energy as
 \[
 A_{\stateVariables|\dataVariables} =  -\frac{1}{\beta}\expDist{\log \frac{\exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right)}{\physicsProb(\stateVariables|\dataVariables) }}{\physicsProb(\stateVariables|\dataVariables) } - \frac{1}{\beta}\expDist{\log \frac{\physicsProb(\stateVariables|\dataVariables)}{\trueProb(\stateVariables|\dataVariables) }}{\physicsProb(\stateVariables|\dataVariables) }
 \] 
-where \(\physicsProb(\stateVariables|\dataVariables)\) represents how our simulation encodes the effect of our  observations of \(\dataVariables\) on the
-microstates.
+where \(\physicsProb(\stateVariables|\dataVariables)\) represents how our simulation encodes the effect of our  observations of \(\dataVariables\) on the microstates.
 
-This expression can be rewritten in terms of 'apparent energies'. We use the term apparent energies to represent the idea that these are the energies under our simulation distribution, rather than the actual energies. The apparent available energies can be related to the true available energy as follows, 
+This expression can be rewritten in terms of `apparent energies'. We use the term apparent energies to represent the idea that these are the energies under our simulation distribution, rather than the actual energies. The apparent available energies can be related to the true available energy as follows, 
 \[
 A_{\stateVariables|\dataVariables} = U^\prime_{\stateVariables|\dataVariables} - TS^\prime_{\stateVariables|\dataVariables} - TD_{\stateVariables|\dataVariables}
 \] 
@@ -250,7 +253,9 @@ We've looked at the apparent available energy, but in practice we are normally i
 The available energy gain is given by
 \begin{align*}
 A_{\stateVariables|\dataVariables} - A_{\stateVariables,\dataVariables} = & -\frac{1}{\beta} \log \int \exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right) \text{d}\stateVariables \\
-& +\frac{1}{\beta} \log \int \exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right) \text{d}\stateVariables\text{d}\dataVariables.
+& +\frac{1}{\beta} \log \int \exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right) \text{d}\stateVariables\text{d}\dataVariables \\
+= & -\frac{1}{\beta} \log \int \exp\left(-\beta E(\dataVariables|\stateVariables) \right) \text{d}\stateVariables \\
+& +\frac{1}{\beta} \log \int \exp\left(-\beta E(\dataVariables|\stateVariables) \right) \text{d}\stateVariables\text{d}\dataVariables .
 \end{align*}
 %
 and introducing our simulation distribution we can rewrite this difference as follows (see Appendix \ref{sec-apparent-available-energy-gain}),
@@ -269,21 +274,42 @@ is the entropy of $\physicsProb(\dataVariables)$. This distribution $\physicsPro
 We also introduced, 
 \(M_{\dataVariables}\), which is the KL divergence between the true distribution observables, $\trueProb(\dataVariables)$ and our model
 \[
-M_{\dataVariables} = k_B \expDist{\log \frac{\physicsProb( \dataVariables)}{\trueProb(\dataVariables) }}{\physicsProb(\dataVariables) }.
+M_{\dataVariables} = k_B \expDist{\log \frac{\physicsProb( \dataVariables)}{\trueProb(\dataVariables) }}{\physicsProb(\dataVariables) }
 \]
 we therefore call it the \emph{model misspecification}.
 %
-Before making observations, we can look at the expected change in apparent available energy as follows,
+As mentioned in Section \ref{sec-intelligence-and-energy}, we don't have access to the values of $\dataVariables$ when we are designing our approximation, so we can't look at the intelligence log ratio directly, but only at expectations of it. Let us assume that we're considering expectations under $r(\dataVariables)$, then the expected change in apparent available energy as follows,
 %
 \[
-\expDist{A_{\stateVariables|\dataVariables} - A_{\stateVariables,\dataVariables}}{\trueProb(\dataVariables)} =  \expDist{E(\dataVariables)}{\trueProb(\dataVariables)} + TS^\prime_\dataVariables + TM_{\dataVariables}  - T\left(\expDist{D_{\stateVariables|\dataVariables}}{\trueProb(\dataVariables)} - \expDist{D_{\stateVariables|\dataVariables}}{\physicsProb(\dataVariables)}\right)
+\expDist{A_{\stateVariables|\dataVariables} - A_{\stateVariables,\dataVariables}}{r(\dataVariables)} =  \expDist{E^\prime(\dataVariables)}{r(\dataVariables)} -  \expDist{E^\prime(\dataVariables)}{\physicsProb(\dataVariables)}+ TS^\prime_\dataVariables + TM_{\dataVariables}  - T\left(\expDist{D_{\stateVariables|\dataVariables}}{r(\dataVariables)} - \expDist{D_{\stateVariables|\dataVariables}}{\physicsProb(\dataVariables)}\right)
 \] 
 %
 where 
+\begin{align*}
+  E^\prime(\dataVariables) &= \expDist{E(\dataVariables|\stateVariables)}{\physicsProb(\stateVariables|\dataVariables)}
+\end{align*}
+
+We now note that taking the expectation under $r(\dataVariables) = \physicsProb(\dataVariables)$ gives,
 \[
-E(\dataVariables) = \expDist{E(\dataVariables|\stateVariables)}{\physicsProb(\stateVariables|\dataVariables)} - \expDist{E(\dataVariables|\stateVariables)}{\physicsProb(\stateVariables,\dataVariables)}.
+\expDist{A_{\stateVariables|\dataVariables} - A_{\stateVariables,\dataVariables}}{\physicsProb(\dataVariables)} =TS^\prime_\dataVariables + TM_Y,
 \]
-Dropping the simulation divergences, 
+implying that the apparent expected available energy gain can be lower bounded as
+\[
+\expDist{A_{\stateVariables|\dataVariables} - A_{\stateVariables,\dataVariables}}{\physicsProb(\dataVariables)}  \geq TS^\prime_\dataVariables
+\]
+when the expectation is taken under our approximation $p(\dataVariables)$ and we recall that
+\[
+S^\prime = - k_\beta \int \physicsProb(\dataVariables) \log \physicsProb(\dataVariables) \text{d} \dataVariables
+\]
+is the entropy of $p(\dataVariables)$. The appearance of a lower bound is attractive, as it implies that we can maximize the entropy of $\physicsProb(\dataVariables)$ without fear of overestimating the expected available energy gain under $\physicsProb(\dataVariables)$. However, caution is still necessary, because our expectation here is not under the true distribution, $\trueProb(\dataVariables)$, but our approximation $\physicsProb(\dataVariables)$. Maximizing will either reduce the model misspecification, $M_\dataVariables$, or mislead us by choosing a $\physicsProb(\dataVariables)$ that seems to give us higher apparent available energy than is actually available from $\trueProb(\dataVariables)$.
+
+The ideal situation would be to consider $r(\dataVariables)=\trueProb(\dataVariables)$. Before we explore this, we first note that,
+\begin{align*}
+\physicsProb(\dataVariables) & = \int \physicsProb(\stateVariables, \dataVariables) \text{d} \stateVariables \\
+& =\frac{\int \exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables) \right) \text{d} \stateVariables}{\int \int \exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables) \right)\text{d} \stateVariables \text{d} \dataVariables} 
+\end{align*}
+\todo{Prove that the first two terms are simply $- \log p(Y)$}
+expectation under our approximating distribution, the divergence Dropping the simulation divergences, 
 \[
 \expDist{D_{\stateVariables|\dataVariables}}{\trueProb(\dataVariables)} - \expDist{D_{\stateVariables|\dataVariables}}{\physicsProb(\dataVariables)},
 \]
@@ -291,7 +317,7 @@ we recover the apparent change in available energy,
 \[
 \expDist{\Delta A^\prime_{\stateVariables|\dataVariables}}{\trueProb(\dataVariables)} = -\expDist{E(\dataVariables)}{\trueProb(\dataVariables)} + TS^\prime_\dataVariables.
 \] 
-
+\todo{Also show that this is equal to p{Y}}
 It's worth pausing for a moment and noting the similarity between the apparent available energy change and the true available energy change. The true change involves the entropy of $\trueProb(\dataVariables)$ whereas the apparent change involves the entropy of the observables under our model, $\physicsProb(\dataVariables)$. The additional energy term, $E(\dataVariables)$, arises from differences in expectations of the energies under the model and the truth. Clearly, if the model matches the truth, we recover the true available energy. On the other hand, if the simulation divergence is zero (recall the simulation divergence compares distributions under the simulation with the true distribution of the microstates), then our estimate upper bounds the true available energy, with the difference between the two being given by the model misspecification. 
 
 In the previous section, we saw how maximising the apparent available energy could result in an increase in the simulation divergence. Here the situation is more complex, because another simulation divergence has emerged arising from $A_{\stateVariables,\dataVariables}$. But even if those two terms are small, it is still problematic to maximise the apparent energy gain because we will now be maximising the model misspecification. Looking at the formulae, it seems that maximising the model misspecification is worse than maximising the simulation divergence. Large simulation divergence can be compensated by a model that is close to truth, but the misspecification of the model cannot be compensated by a low simulation divergence.
@@ -404,9 +430,42 @@ and now we write
 \[
 A_{\stateVariables|\dataVariables} = \sum f(\dataVariables) -
 \]
-The form of our apparent AEG 
-then we can choose a form for $\physicsProb(\dataVariables)$ that minimizes 
+The form of our apparent AEG  then we can choose a form for $\physicsProb(\dataVariables)$ that minimizes 
 we can look at an empirical estimate by taking 
+
+Recalling that the apparent available energies are written in terms of the partition functions of our simulation,
+\begin{align*}
+A^\prime_{\stateVariables|\dataVariables_1} & = - \frac{1}{\beta} \log Z_{\stateVariables|\dataVariables_1}^\prime \\
+A^\prime_{\stateVariables,\dataVariables_1} & = - \frac{1}{\beta} \log Z_{\stateVariables,\dataVariables_1}^\prime
+\end{align*}
+we can write down the apparent available energy gain as,
+\begin{align*}
+\Delta A^\prime_{\stateVariables|\dataVariables_1} & = - \frac{1}{\beta} \log \frac{Z_{\stateVariables|\dataVariables_1}^\prime}{Z_{\stateVariables,\dataVariables_1}^\prime}\\
+& = -\frac{1}{\beta} \log \physicsProb(\dataVariables)
+\end{align*}
+and the apparent intelligence quotient is given by
+\[
+I^\prime =\frac{\exp\left(-\beta E(\measuredVariables_\dataVariables=\textbf{1})\right)}{\physicsProb(\dataVariables)}
+\]
+And we note, 
+\[
+\expDist{\log I}{\trueProb(\dataVariables)} = \expDist{\log I^\prime}{\trueProb(\dataVariables)} - \text{KL}(\trueProb(\dataVariables)||\physicsProb(\dataVariables))
+\]
+giving 
+\[
+\expDist{\log I}{\trueProb(\dataVariables)} \leq \expDist{\log I^\prime}{\trueProb(\dataVariables)}
+\] 
+implying that we can get an upper bound estimate on the expected logarithm of intelligence quotient. The upper bound is tightened by minimising $\text{KL}(\trueProb(\dataVariables)||\physicsProb(\dataVariables))$, or the inclusive KL divergence. 
+
+Conversely, we can lower bound the expected logarithm of the intelligence quotient where the expectation is under $\physicsProb(\dataVariables)$. 
+\[
+\expDist{\log I}{\physicsProb(\dataVariables)} = \expDist{\log I^\prime}{\physicsProb(\dataVariables)} + \text{KL}(\physicsProb(\dataVariables)||\trueProb(\dataVariables))
+\]
+implying
+\[
+\expDist{\log I}{\physicsProb(\dataVariables)} \geq \expDist{\log I^\prime}{\physicsProb(\dataVariables)}
+\]
+
 \section{Parameterised Model}
 
 The next step is to include \emph{parameters} with the model. To do this
