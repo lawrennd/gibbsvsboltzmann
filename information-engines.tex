@@ -255,15 +255,10 @@ giving us a range for the intelligence quotient,
 \[
 F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables= \textbf{1})\right)}{\physicsProb(\dataVariables)} \leq I \leq \frac{1}{F_G}\frac{\exp\left(-E(\measuredVariables_\dataVariables= \textbf{1})\right)}{\physicsProb(\dataVariables)}.
 \]
-The two main paradigms of modelling, physical modelling and data driven modelling, can be broadly seen as approaching this quotient from two different sides. In physics the aim is to maximize the simulation fidelity, $F_G$. By getting more accurate physics into our simulation, $\simProb(\stateVariables)$, we obtain $F_G$ and the gap between these bounds tightens (as a result $F_M$ and $F_R$ also approach 1). In data driven modelling, the focus is on the \emph{model fidelity}, $F_M$. The model fidelity can be approximately maximized by through a sample based approximation to $\log F_M$. This is known as \emph{maximum likelihood},
-\[
-\log F_M \approx \sum_{i=1}^n \log \physicsProb(y_i; \boldsymbol{\theta}) + \text{const}
-\]
-where $\{y_i\}_{i=1}^n$ is a set of samples from $\trueProb(\dataVariables)$ and $\boldsymbol{\theta}$ is a set of parameters of $\physicsProb(\dataVariables)$ and $\text{const}$ is constant in $\boldsymbol{\theta}$.
 
-\section{Expected Log Intelligence Quotient}
+\subsection{Global and Local Simulations}
 
-For a particular special case, the lower bound 
+The two different simulation fidelities represent a fundamental tension in modelling. The global simulation fidelity gives us a simulation that tries to be valid across the different data that we might observe, $\trueProb(\dataVariables)$. The local simulation fidelity is specific to the data we have, $\dataVariables$. The global simulation fidelity is associated with our global understanding of physical laws. The contextual simulation fidelity is associated with the particular circumstance we currently find ourselves in.
 
 
 \end{document}
