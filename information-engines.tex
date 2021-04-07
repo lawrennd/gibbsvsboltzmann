@@ -235,7 +235,7 @@ which substituting into (\ref{eqn-true-log-likelihood-1}) gives
 \[
 \log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables) +  \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) - \text{KL}(\physicsProb(\dataVariables) || \trueProb(\dataVariables)) - \expDist{\text{KL}(\simProb(\stateVariables) || \physicsProb(\stateVariables | \dataVariables))}{\physicsProb(\dataVariables)}
 \]
-and a corresponding \emph{upper} bound on $\log \trueProb(\dataVaribles)$, 
+and a corresponding \emph{upper} bound on $\log \trueProb(\dataVariables)$, 
 \[
 \log \trueProb(\dataVariables) \leq \log \physicsProb(\dataVariables) +   \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)).
 \]
@@ -260,5 +260,11 @@ F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables= \textbf{1})\right)}{\p
 
 The two different simulation fidelities represent a fundamental tension in modelling. The global simulation fidelity gives us a simulation that tries to be valid across the different data that we might observe, $\trueProb(\dataVariables)$. The local simulation fidelity is specific to the data we have, $\dataVariables$. The global simulation fidelity is associated with our global understanding of physical laws. The contextual simulation fidelity is associated with the particular circumstance we currently find ourselves in.
 
-
+\begin{figure}
+    \centering
+    \def\svgwidth{\textwidth}
+   \input{./diagrams/py-bounds.tex}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
 \end{document}
