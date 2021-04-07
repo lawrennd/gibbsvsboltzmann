@@ -260,11 +260,23 @@ F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables= \textbf{1})\right)}{\p
 
 The two different simulation fidelities represent a fundamental tension in modelling. The global simulation fidelity gives us a simulation that tries to be valid across the different data that we might observe, $\trueProb(\dataVariables)$. The local simulation fidelity is specific to the data we have, $\dataVariables$. The global simulation fidelity is associated with our global understanding of physical laws. The contextual simulation fidelity is associated with the particular circumstance we currently find ourselves in.
 
+
+
 \begin{figure}
     \centering
     \def\svgwidth{\textwidth}
    \input{./diagrams/py-bounds.tex}
     \caption{Visualisation of the lower and upper bound on $\trueProb(\dataVariables)$ to highlight how the approximation, $\physicsProb(\dataVariables)$, corresponds to the bounds combining with the fidelities, $F_C$.}
-    \label{fig:my_label}
+    \label{fig-py-bounds}
+\end{figure}
+
+
+
+\begin{figure}
+    \centering
+    \def\svgwidth{\textwidth}
+   \input{./diagrams/log-py-bounds.tex}
+    \caption{Visualisation of the lower and upper bound on $\log \trueProb(\dataVariables)$ to highlight how the approximation, $\log \physicsProb(\dataVariables)$, corresponds to the bounds combining with the fidelities, $\log F_C$ and $\log F_G$.}
+    \label{fig-log-py-bounds}
 \end{figure}
 \end{document}
