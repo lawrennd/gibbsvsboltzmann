@@ -41,21 +41,40 @@ This paper attempts to understand the limitations on predictive modelling by tak
 
 Because the paper bridges some different fields, and tries to equate thermodynamic and information theoretic terms with words that are widely used in modelling, it may be seen as abusing terminology in parts. So to clarify at the outset, we are using some general terms in very specific ways. 
 
-In particular, we use the word \emph{simulation} to imply a physical model over the microstates of the universe that represents our 'best practical' understanding of the underlying physics. In what follows this simulation is denoted by $\physicsProb(\stateVariables|\dataVariables)$. Alongside this we have the \emph{data model}, which represents the marginal distribution for the data we observe, $\physicsProb(\dataVariables)$. Quite often in the below we will refer to this simply as `the model' as it will turn out to be one of the main objects of focus. 
+In particular, we use the word \emph{simulation} to imply a physical
+model over the microstates of the universe that represents our 'best
+practical' understanding of the underlying physics. In what follows
+this simulation is denoted by
+$\physicsProb(\stateVariables|\dataVariables)$. Alongside this we have
+the \emph{data model}, which represents the marginal distribution for
+the data we observe, $\physicsProb(\dataVariables)$. Quite often in
+the below we will refer to this simply as `the model' as it will turn
+out to be one of the main objects of focus.
 
-Our investigation is centred around the concept of \emph{free energy}. The free energy is the energy in a system that is available to us for use. In particular we focus on the Helmholtz free energy which was introduced by Hermann von Helmholtz in the study of electrochemistry. In a thermodynamic system, the state space is referred to as the phase
-space.\footnote{Here we are referring to the microstates, the macrostates would be the sufficient statistics of the microstates.} The distribution of the phase space is given by \emph{Boltzmann's distribution} which is derived by considering the energy levels of different configurations of microstates.  In a continuous system, we write down
-the\emph{Hamiltonian} as follows,
+Our investigation is centred around the concept of \emph{free
+  energy}. The free energy is the energy in a system that is available
+to us for use. In particular we focus on the Helmholtz free energy
+which was introduced by Hermann von Helmholtz in the study of
+electrochemistry. In a thermodynamic system, the state space is
+referred to as the phase space.\footnote{Here we are referring to the
+  microstates, the macrostates would be the sufficient statistics of
+  the microstates.} The distribution of the phase space is given by
+\emph{Boltzmann's distribution} which is derived by considering the
+energy levels of different configurations of microstates.  In a
+continuous system, we write down the\emph{Hamiltonian} as follows,
 \[
 \mathbb{P}(\phaseVariables) = \frac{1}{Z_\phaseVariables} \exp(-\beta E(\phaseVariables)),
 \] 
-where \(E(\phaseVariables)\) is the energy of the system in microstate \(\phaseVariables\).
+where \(E(\phaseVariables)\) is the energy of the system in microstate
+\(\phaseVariables\).
 
 The partition function is then given by 
 \[
 Z_\phaseVariables = \sum_\phaseVariables \exp(-\beta E(\phaseVariables)),
 \] 
-where the \(Z\) comes from the German for ``sum over states'' or \emph{Zustandssumme}, reflecting Boltzmann's Austrian heritage. In the case of continuous systems we have, 
+where the \(Z\) comes from the German for ``sum over states'' or
+\emph{Zustandssumme}, reflecting Boltzmann's Austrian heritage. In the
+case of continuous systems we have,
 \[
 Z_{\phaseVariables} = \frac{1}{h^3}\int \exp(-\beta E(\phaseVariables)) \text{d} \phaseVariables
 \] 
@@ -64,7 +83,7 @@ and \(E(\phaseVariables)\) is the Hamiltonian of the system.
 \subsection{Total Energy}
 
 The total energy, \(U_\phaseVariables\) is defined as the expected
-energy, 
+energy,
 \[
 U_\phaseVariables = \expDist{E(\phaseVariables)}{\trueProb(\phaseVariables)},
 \] 
@@ -77,13 +96,13 @@ where
 \[
 A_\phaseVariables = - \frac{1}{\beta}\log Z_\phaseVariables
 \] 
-is the \emph{Helmholtz free energy} and \[
-S_\phaseVariables = -k_B \expDist{\log \trueProb(\phaseVariables)}{\trueProb(\phaseVariables)}
+is the \emph{Helmholtz free energy} and \[ S_\phaseVariables = -k_B
+\expDist{\log \trueProb(\phaseVariables)}{\trueProb(\phaseVariables)}
 \] is the entropy of the system and \(T\) is the temperature.
 
-This equation expresses a fundamental decomposition of the total energy
-into the available energy, \(A_\phaseVariables\) and energy that is not
-available, \(TS_\phaseVariables\).
+This equation expresses a fundamental decomposition of the total
+energy into the available energy, \(A_\phaseVariables\) and energy
+that is not available, \(TS_\phaseVariables\).
 
 \subsection{Intelligence and Energy} \label{sec-intelligence-and-energy}
 
@@ -95,25 +114,41 @@ moment, time will not enter our calculations because we will focus on
 of as the \emph{steady state} condition.
 
 Our first step will be to split our phase space into variables we can
-observe and the other variables,
-\(\phaseVariables = \{\stateVariables, \dataVariables\}\), this allows
-us to write 
+observe and the other variables, \(\phaseVariables =
+\{\stateVariables, \dataVariables\}\), this allows us to write
 \[
-U_{\stateVariables,\dataVariables} = A_{\stateVariables,\dataVariables} + TS_{\stateVariables,\dataVariables},
+U_{\stateVariables,\dataVariables} =
+A_{\stateVariables,\dataVariables} +
+TS_{\stateVariables,\dataVariables},
 \] 
 where 
 \[
-A_{\stateVariables,\dataVariables} = - \frac{1}{\beta}\log Z_{\stateVariables,\dataVariables}
+A_{\stateVariables,\dataVariables} = - \frac{1}{\beta}\log
+Z_{\stateVariables,\dataVariables}
 \] 
 and 
 \[
-S_{\stateVariables,\dataVariables} = -k_B \expDist{\log \trueProb({\stateVariables,\dataVariables})}{\trueProb({\stateVariables,\dataVariables})}.
+S_{\stateVariables,\dataVariables} = -k_B \expDist{\log
+  \trueProb({\stateVariables,\dataVariables})}{\trueProb({\stateVariables,\dataVariables})}.
 \]
-In thermodynamics we might think of the observable values as 'measurable state variables', where as the microstates, $\stateVariables$, are normally considered to be not directly measurable. In machine learning though, we might simply think of $\stateVariables$ as latent variables and $\dataVariables$ as data, or potential data.
+In thermodynamics we might think of the observable values as
+'measurable state variables', where as the microstates,
+$\stateVariables$, are normally considered to be not directly
+measurable. In machine learning though, we might simply think of
+$\stateVariables$ as latent variables and $\dataVariables$ as data, or
+potential data.
 
-To interact with our system we will introduce a new set of variables, $\measuredVariables$ which is a $(0,1)$-matrix that contains a one if a corresponding variable is observed. We place the corresponding variable in the subscript, so $\measuredVariables_\dataVariables$ is the matrix that indicates whether or not $\dataVariables$ is observed. So if we have $\measuredVariables_\dataVariables = \mathbf{1}$ then all elements of $\dataVariables$ are observed. 
+To interact with our system we will introduce a new set of variables,
+$\measuredVariables$ which is a $(0,1)$-matrix that contains a one if
+a corresponding variable is observed. We place the corresponding
+variable in the subscript, so $\measuredVariables_\dataVariables$ is
+the matrix that indicates whether or not $\dataVariables$ is
+observed. So if we have $\measuredVariables_\dataVariables =
+\mathbf{1}$ then all elements of $\dataVariables$ are observed.
 
-We can now denote interactions with the system through changing the values of $\measuredVariables_\dataVariables$. These interactions will have their own energy cost that we denote $E(\measuredVariables)$.
+We can now denote interactions with the system through changing the
+values of $\measuredVariables_\dataVariables$. These interactions will
+have their own energy cost that we denote $E(\measuredVariables)$.
 
 If we instantiate the observable states. We change our system. From a
 probabilistic perspective, this change is equivalent to
@@ -122,143 +157,252 @@ probabilistic perspective, this change is equivalent to
 Making an observation in this system is equivalent to conditioning on
 \(\dataVariables\) for the total energy which we write as 
 \[
-U_{\stateVariables|\dataVariables} = E(\measuredVariables_\dataVariables=\mathbf{1}) +  \expDist{E({\stateVariables|\dataVariables})}{\trueProb({\stateVariables|\dataVariables})},
+U_{\stateVariables|\dataVariables} =
+E(\measuredVariables_\dataVariables=\mathbf{1}) +
+\expDist{E({\stateVariables|\dataVariables})}{\trueProb({\stateVariables|\dataVariables})},
 \]
-where we have used $E(\measuredVariables_\dataVariables=\mathbf{1})$ to denote the energy associated with making the observation.
+where we have used $E(\measuredVariables_\dataVariables=\mathbf{1})$
+to denote the energy associated with making the observation.
 
 Inspired by probability notation, we decompose that updated energy
 state \(E(\stateVariables| \dataVariables)\) into two parts, one which
 represents the interaction between our measurements and the state,
 \(E(\dataVariables|\stateVariables)\) and \(E(\stateVariables)\)
-represents energy terms where there is no interaction and write 
+represents energy terms where there is no interaction and write
 \[
-\mathbb{P}({\stateVariables|\dataVariables}) = \frac{1}{Z_{\stateVariables|\dataVariables}} \exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right)
+\mathbb{P}({\stateVariables|\dataVariables}) =
+\frac{1}{Z_{\stateVariables|\dataVariables}} \exp\left(-\beta
+E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right)
 \] 
-where the partition function is given by 
+where the partition function is given by
 \[
-Z_{\stateVariables|\dataVariables} = \int \exp\left(-\beta E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right) \text{d}\stateVariables
+Z_{\stateVariables|\dataVariables} = \int \exp\left(-\beta
+E(\dataVariables|\stateVariables) -\beta E(\stateVariables)\right)
+\text{d}\stateVariables
 \] 
-The new total energy, conditioning on the measurements is 
+The new total energy, conditioning on the measurements is
 \[
-U_{\stateVariables|\dataVariables} = E(\measuredVariables_\dataVariables=\mathbf{1})  A_{\stateVariables|\dataVariables} + TS_{\stateVariables|\dataVariables}
+U_{\stateVariables|\dataVariables} =
+E(\measuredVariables_\dataVariables=\mathbf{1})
+A_{\stateVariables|\dataVariables} +
+TS_{\stateVariables|\dataVariables}
 \] 
 where 
 \[
-A_{\stateVariables|\dataVariables} = - \frac{1}{\beta}\log Z_{\stateVariables|\dataVariables}
+A_{\stateVariables|\dataVariables} = - \frac{1}{\beta}\log
+Z_{\stateVariables|\dataVariables}
 \] 
 and 
 \[
-S_{\stateVariables|\dataVariables} = -k_B \expDist{\log \trueProb({\stateVariables|\dataVariables})}{\trueProb({\stateVariables|\dataVariables})}.
+S_{\stateVariables|\dataVariables} = -k_B \expDist{\log
+  \trueProb({\stateVariables|\dataVariables})}{\trueProb({\stateVariables|\dataVariables})}.
 \]
 
-We can examine how this changes the free energy, the energy gain through
-observation is, 
+We can examine how this changes the free energy, the energy gain
+through observation is,
 \begin{align*}
-A_{\stateVariables|\dataVariables} - A_{\stateVariables,\dataVariables} = & -\frac{1}{\beta} \log \frac{Z_{\stateVariables|\dataVariables}}{Z_{\stateVariables,\dataVariables}}\\
-& -\frac{1}{\beta} \log \trueProb(\dataVariables)
+  A_{\stateVariables|\dataVariables} -
+  A_{\stateVariables,\dataVariables} = & -\frac{1}{\beta} \log
+  \frac{Z_{\stateVariables|\dataVariables}}{Z_{\stateVariables,\dataVariables}}\\ &
+  -\frac{1}{\beta} \log \trueProb(\dataVariables)
 \end{align*}
-which is the information gained through the observation, \(\dataVariables\). This needs to be traded off against the cost of observing given by $E(\measuredVariables_\dataVariables=\mathbf{1}) $.
+which is the information gained through the observation,
+\(\dataVariables\). This needs to be traded off against the cost of
+observing given by $E(\measuredVariables_\dataVariables=\mathbf{1}) $.
 
-This is the fundamental relation between information and energy that we need to pursue our definition of intelligence. By measuring our system we gain available energy. If the cost of the measurement is less than the amount of available energy we gain, then this is an action worth taking. 
+This is the fundamental relation between information and energy that
+we need to pursue our definition of intelligence. By measuring our
+system we gain available energy. If the cost of the measurement is
+less than the amount of available energy we gain, then this is an
+action worth taking.
 
-We can define a dimensionless quotient the intelligence of an action (where action is taken to mean a change of $\measuredVariables$) to be,
+\subsection{Intelligence Quotient}
+
+We can define a dimensionless quotient the intelligence of an action
+(where action is taken to mean a change of $\measuredVariables$) to
+be,
 \[
 I = \frac{\exp(-\beta E(\measuredVariables_\dataVariables=\mathbf{1}))}{\trueProb(\dataVariables)},\]
 where $\beta$ is the thermodynamic temperature \(\beta = \frac{1}{Tk_B}\).
 
-This allows us to express the available energy change as a result of an action in terms of the intelligence quotient as follows,
+This allows us to express the available energy change as a result of
+an action in terms of the intelligence quotient as follows,
 \[
 \Delta E = T k_B\log I,
 \]
 so we see that the log intelligence quotient is a critical quantity. 
 
-Since we need to make our decisions about which variables to observe before we know their values, we can only consider this quotient in expectation.
-and we can also consider the expected available energy change,
+Since we need to make our decisions about which variables to observe
+before we know their values, we can only consider this quotient in
+expectation.  and we can also consider the expected available energy
+change,
 \[
 \expDist{\Delta E}{\trueProb(\dataVariables)} = T k_B\expDist{\log I}{\trueProb(\dataVariables)}.
 \]
-Now we are faced with the problem of approximating the available energy because we don't have direct access to $\trueProb(\dataVariables)$.
+Now we are faced with the problem of approximating the available
+energy because we don't have direct access to
+$\trueProb(\dataVariables)$.
 
-Our first approach will be to lower bound the expected intelligence quotient. Introducing a variational distribution $\simProb(\dataVariables)$, and considering the expected log intelligence quotient under this distribution we have,
+Our first approach will be to lower bound the expected intelligence
+quotient. Introducing a variational distribution
+$\simProb(\dataVariables)$, and considering the expected log
+intelligence quotient under this distribution we have,
 \[
 \expDist{\log I}{\simProb(\dataVariables)}   = - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log \trueProb(\dataVariables)}{\simProb(\dataVariables)}
 \]
 which is lower bounded by,
 \begin{equation}
-\expDist{\log I}{\simProb(\dataVariables)}   \geq - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log \simProb(\dataVariables)}{\simProb(\dataVariables)}, \label{eqn-lir-lower}
+  \expDist{\log I}{\simProb(\dataVariables)} \geq - \beta
+  E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log
+    \simProb(\dataVariables)}{\simProb(\dataVariables)}, \label{eqn-lir-lower}
 \end{equation}
-giving us a lower bound on the expected log intelligence quotient, where the expectation is taken under the variational distribution. Maximising this lower bound implies maximising the entropy of $\simProb(\dataVariables)$. Unfortunately, the entropy is unbounded. Which implies that the expected intelligence quotient under a general distribution $\simProb(\dataVariables)$ is also unbounded. We need more constraints on $\simProb(\cdot)$ to make progress. 
+giving us a lower bound on the expected log intelligence quotient,
+where the expectation is taken under the variational
+distribution. Maximising this lower bound implies maximising the
+entropy of $\simProb(\dataVariables)$. Unfortunately, the entropy is
+unbounded. Which implies that the expected intelligence quotient under
+a general distribution $\simProb(\dataVariables)$ is also
+unbounded. We need more constraints on $\simProb(\cdot)$ to make
+progress.
 
 We can rewrite $\log \physicsProb(\dataVariables)$ as
 \begin{align}
-    \log \trueProb(\dataVariables) & = \expDist{\trueProb(\dataVariables, \stateVariables)}{\simProb(\stateVariables )} +  \expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} +  \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) \nonumber \\
-    & = -\beta\expDist{ E(\dataVariables | \stateVariables)}{\simProb(\stateVariables)}  -\beta\expDist{E(\stateVariables)}{\simProb(\stateVariables)} - \log Z_{\stateVariables,\dataVariables} + \expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} +  \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) \label{eqn-true-log-likelihood-1}
+    \log \trueProb(\dataVariables) & =
+    \expDist{\trueProb(\dataVariables,
+      \stateVariables)}{\simProb(\stateVariables )} + \expDist{\log
+      \simProb(\stateVariables)}{\simProb(\stateVariables)} +
+    \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
+    \nonumber \\ & = -\beta\expDist{ E(\dataVariables |
+      \stateVariables)}{\simProb(\stateVariables)}
+    -\beta\expDist{E(\stateVariables)}{\simProb(\stateVariables)} -
+    \log Z_{\stateVariables,\dataVariables} + \expDist{\log
+      \simProb(\stateVariables)}{\simProb(\stateVariables)} +
+    \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) \label{eqn-true-log-likelihood-1}
 \end{align}
 and now note that
 \[
--  \log Z_{\stateVariables,\dataVariables} = \beta\expDist{E(\dataVariables | \stateVariables)}{\simProb(\stateVariables)\trueProb(\dataVariables)} + \beta\expDist{E(\stateVariables)}{\simProb(\stateVariables )} - k_B^{-1}S_\dataVariables -\expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} - \expDist{\text{KL}(\simProb(\stateVariables) || \trueProb(\stateVariables | \dataVariables))}{\trueProb(\dataVariables)}
+- \log Z_{\stateVariables,\dataVariables} =
+\beta\expDist{E(\dataVariables |
+  \stateVariables)}{\simProb(\stateVariables)\trueProb(\dataVariables)}
++ \beta\expDist{E(\stateVariables)}{\simProb(\stateVariables )} -
+k_B^{-1}S_\dataVariables -\expDist{\log
+  \simProb(\stateVariables)}{\simProb(\stateVariables)} -
+\expDist{\text{KL}(\simProb(\stateVariables) ||
+  \trueProb(\stateVariables |
+  \dataVariables))}{\trueProb(\dataVariables)}
 \]
 if we now define
 \[
-\physicsProb(\dataVariables) = \frac{\exp\left(-\beta \expDist{E(\dataVariables | \stateVariables)}{\simProb(\stateVariables)}\right)}{Z^\prime_\dataVariables}
+\physicsProb(\dataVariables) = \frac{\exp\left(-\beta
+  \expDist{E(\dataVariables |
+    \stateVariables)}{\simProb(\stateVariables)}\right)}{Z^\prime_\dataVariables}
 \]
 then we can write
 \[
-\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables)  + \text{KL}(\trueProb(\dataVariables)||\physicsProb(\dataVariables))  + \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) - \expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}. 
+\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables) +
+\text{KL}(\trueProb(\dataVariables)||\physicsProb(\dataVariables)) +
+\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
+-
+\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
 \]
 so we can show that
 \[
-\log \trueProb(\dataVariables) \geq \log \physicsProb(\dataVariables) - \expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
+\log \trueProb(\dataVariables) \geq \log \physicsProb(\dataVariables)
+-
+\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
 \]
-Maximizing this lower bound is achieved through minimizing $\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}$, in other words, finding a variational distribution which represents how the microstates behave correctly. Maximising this bound improves the physical plausibility of the model. We call $\simProb(\stateVariables)$ the \emph{simulation} and we call $\exp\left(- \expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}\right)$ the global simulation fidelity, $F_G$,
+Maximizing this lower bound is achieved through minimizing
+$\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}$,
+in other words, finding a variational distribution which represents
+how the microstates behave correctly. Maximising this bound improves
+the physical plausibility of the model. We call
+$\simProb(\stateVariables)$ the \emph{simulation} and we call
+$\exp\left(-
+\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}\right)$
+the global simulation fidelity, $F_G$,
 \[
-\log F_G = -\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
+\log F_G =
+-\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
 \]
-Note that the fidelities we define vary between 0 and 1, with 1 being equivalent to 100\% faithful, meaning that the match between the two distributions is perfect. 
+Note that the fidelities we define vary between 0 and 1, with 1 being
+equivalent to 100\% faithful, meaning that the match between the two
+distributions is perfect.
 
 This in turn gives us an upper bound on our log intelligence quotient,
 \[
-\log I \leq -\beta E(\measuredVariables_\dataVariables = \textbf{1}) -\log \physicsProb(\dataVariables) - \log F_G.
+\log I \leq -\beta E(\measuredVariables_\dataVariables = \textbf{1})
+-\log \physicsProb(\dataVariables) - \log F_G.
 \]
 So we can write the intelligence quotient as,
 \[
-I \leq \frac{1}{F_G}\frac{\exp\left(-E(\measuredVariables_\dataVariables=\textbf{1})\right)}{\physicsProb(\dataVariables)}.
+I \leq
+\frac{1}{F_G}\frac{\exp\left(-E(\measuredVariables_\dataVariables=\textbf{1})\right)}{\physicsProb(\dataVariables)}.
 \]
 
 \subsection{Lower Bound}
 
-We can also write 
+We can also write
 \[
--  \log Z_{\stateVariables,\dataVariables} = \beta\expDist{E(\dataVariables | \stateVariables)}{\simProb(\stateVariables)\physicsProb(\dataVariables)} + \beta\expDist{E(\stateVariables)}{\simProb(\stateVariables )} + \expDist{\log \trueProb(\dataVariables)}{\physicsProb(\dataVariables)} -\expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} - \expDist{\text{KL}(\simProb(\stateVariables) || \physicsProb(\stateVariables | \dataVariables))}{\physicsProb(\dataVariables)}
+- \log Z_{\stateVariables,\dataVariables} =
+\beta\expDist{E(\dataVariables |
+  \stateVariables)}{\simProb(\stateVariables)\physicsProb(\dataVariables)}
++ \beta\expDist{E(\stateVariables)}{\simProb(\stateVariables )} +
+\expDist{\log \trueProb(\dataVariables)}{\physicsProb(\dataVariables)}
+-\expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} -
+\expDist{\text{KL}(\simProb(\stateVariables) ||
+  \physicsProb(\stateVariables |
+  \dataVariables))}{\physicsProb(\dataVariables)}
 \]
 which substituting into (\ref{eqn-true-log-likelihood-1}) gives
 \[
-\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables) +  \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) - \text{KL}(\physicsProb(\dataVariables) || \trueProb(\dataVariables)) - \expDist{\text{KL}(\simProb(\stateVariables) || \physicsProb(\stateVariables | \dataVariables))}{\physicsProb(\dataVariables)}
+\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables) +
+\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
+- \text{KL}(\physicsProb(\dataVariables) || \trueProb(\dataVariables))
+- \expDist{\text{KL}(\simProb(\stateVariables) ||
+  \physicsProb(\stateVariables |
+  \dataVariables))}{\physicsProb(\dataVariables)}
 \]
 and a corresponding \emph{upper} bound on $\log \trueProb(\dataVariables)$, 
 \[
-\log \trueProb(\dataVariables) \leq \log \physicsProb(\dataVariables) +   \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)).
+\log \trueProb(\dataVariables) \leq \log \physicsProb(\dataVariables)
++
+\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)).
 \]
-We define the $\exp\left(- \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))\right)$ to be the \emph{contextual} simulation fidelity, $F_C$,
+We define the $\exp\left(-
+\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))\right)$
+to be the \emph{contextual} simulation fidelity, $F_C$,
 \[
-\log F_C = -\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)).
+\log F_C =
+-\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)).
 \]
-and note the relationship between the contextual and global simulation fidelities,
+and note the relationship between the contextual and global simulation
+fidelities,
 \[
 \log F_G = \expDist{\log F_C}{\trueProb(\dataVariables)}.
 \]
 and we can now lower bound the intelligence quotient,
 \[
-I \geq F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables= \textbf{1})\right)}{\physicsProb(\dataVariables)}.
+I \geq F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables=
+  \textbf{1})\right)}{\physicsProb(\dataVariables)}.
 \]
 giving us a range for the intelligence quotient,
 \[
-F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables= \textbf{1})\right)}{\physicsProb(\dataVariables)} \leq I \leq \frac{1}{F_G}\frac{\exp\left(-E(\measuredVariables_\dataVariables= \textbf{1})\right)}{\physicsProb(\dataVariables)}.
+F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables=
+  \textbf{1})\right)}{\physicsProb(\dataVariables)} \leq I \leq
+\frac{1}{F_G}\frac{\exp\left(-E(\measuredVariables_\dataVariables=
+  \textbf{1})\right)}{\physicsProb(\dataVariables)}.
 \]
 
 \subsection{Global and Local Simulations}
 
-The two different simulation fidelities represent a fundamental tension in modelling. The global simulation fidelity gives us a simulation that tries to be valid across the different data that we might observe, $\trueProb(\dataVariables)$. The local simulation fidelity is specific to the data we have, $\dataVariables$. The global simulation fidelity is associated with our global understanding of physical laws. The contextual simulation fidelity is associated with the particular circumstance we currently find ourselves in.
+The two different simulation fidelities represent a fundamental
+tension in modelling. The global simulation fidelity gives us a
+simulation that tries to be valid across the different data that we
+might observe, $\trueProb(\dataVariables)$. The local simulation
+fidelity is specific to the data we have, $\dataVariables$. The global
+simulation fidelity is associated with our global understanding of
+physical laws. The contextual simulation fidelity is associated with
+the particular circumstance we currently find ourselves in.
 
 
 
@@ -266,17 +410,23 @@ The two different simulation fidelities represent a fundamental tension in model
     \centering
     \def\svgwidth{\textwidth}
    \input{./diagrams/py-bounds.tex}
-    \caption{Visualisation of the lower and upper bound on $\trueProb(\dataVariables)$ to highlight how the approximation, $\physicsProb(\dataVariables)$, corresponds to the bounds combining with the fidelities, $F_C$.}
+    \caption{Visualisation of the lower and upper bound on
+      $\trueProb(\dataVariables)$ to highlight how the approximation,
+      $\physicsProb(\dataVariables)$, corresponds to the bounds
+      combining with the fidelities, $F_C$.}
     \label{fig-py-bounds}
 \end{figure}
 
 
 
 \begin{figure}
-    \centering
-    \def\svgwidth{\textwidth}
-   \input{./diagrams/log-py-bounds.tex}
-    \caption{Visualisation of the lower and upper bound on $\log \trueProb(\dataVariables)$ to highlight how the approximation, $\log \physicsProb(\dataVariables)$, corresponds to the bounds combining with the fidelities, $\log F_C$ and $\log F_G$.}
+  \centering
+  \def\svgwidth{\textwidth}
+    \input{./diagrams/log-py-bounds.tex}
+    \caption{Visualisation of the lower and upper bound on $\log
+      \trueProb(\dataVariables)$ to highlight how the approximation,
+      $\log \physicsProb(\dataVariables)$, corresponds to the bounds
+      combining with the fidelities, $\log F_C$ and $\log F_G$.}
     \label{fig-log-py-bounds}
 \end{figure}
 \end{document}
