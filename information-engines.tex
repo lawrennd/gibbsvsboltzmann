@@ -19,8 +19,8 @@
 
 \newcommand{\phaseVariables}{\Gamma}
 \newcommand{\stateVariables}{X}
-\newcommand{\nullVariables}{X_0}
-\newcommand{\domainVariables}{X_1}
+\newcommand{\nullVariables}{{X_0}}
+\newcommand{\domainVariables}{{X_1}}
 \newcommand{\dataVariables}{Y}
 \newcommand{\measuredVariables}{S}
 \newcommand{\parameterVector}{W}
@@ -441,4 +441,51 @@ the particular circumstance we currently find ourselves in.
       combining with the fidelities, $\log F_C$ and $\log F_G$.}
     \label{fig-log-py-bounds}
 \end{figure}
+
+
+\section{Maximizing Intelligence Quotient}
+
+The intelligence quotient can be maximized by maximizing the lower bound with respect to $\simProb(\latentVariables)$, which in turn gives us the optimal form of $\physicsProb(\dataVariables)$. The lower bound on the log intelligence quotient is given by,
+\[
+\log I \geq - \log \physicsProb(\dataVariables) -\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) - \beta E(\measuredVariables_\dataVariables = \textbf{1})
+\]
+recalling that $\log \physicsProb = \frac{\expDist{E(\dataVariables|\stateVariables)}{\simProb(\stateVariables)}}{Z^\prime_\dataVariables}$ and focussing on the terms that are dependent on $\simProb(\stateVariables)$ we have,
+\[
+\log I \geq \beta \expDist{E(\stateVariables)}{\simProb(\stateVariables)} - \expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} + \text{const.},
+\]
+where $\text{const.} = \log Z^\prime_Y - \log Z_{\stateVariables|\measuredVariables}$. This can be maximized by setting,
+\[
+\simProb(\stateVariables) = \trueProb(\stateVariables)
+\]
+giving us the unsurprising conclusion that the maximum intelligence quotient is given by setting our simulation to be equal to the true distribution of the microstates, $\trueProb(\stateVariables)$. 
+
+However, this is generally impractical. In our set up $\stateVariables$, includes all the microstates of the Universe. We are unlikely to be able to build an accurate simulation across all these variables. So our first step is to constrain our simulation such that it focuses on variables of interest.
+
+\subsection{Null Space and Domain Space}
+
+We divide the microstates of the Universe into two parts, we call one the null space, and denote it by $\nullVariables$. These are the microstates in the Universe that we'd prefer to ignore in our simulation. Then we have the domain space, which we denote by $\domainVariables$. These are the microstates that we considere directly relevant for our problem. So that we can factorise our Universe into different simulations for use in different contexts, we then make the assumption that
+\[
+\simProb(\stateVariables) = \simProb(\nullVariables) \simProb(\domainVariables)
+\]
+and we impose this as a constraint when maximizing the lower bound on the intelligence quotient.
+
+Under this constraint, we obtain the following form for $\simProb(\domainVariables)$,
+\[
+\simProb(\domainVariables) = \frac{\exp \left(-\beta E^\prime(\domainVariables)\right)}{Z^\prime_\domainVariables},
+\]
+where we have introduced $E^\prime(\domainVariables) = \expDist{E(\stateVariables)}{\simProb(\nullVariables)}$ as well as the domain simulation's partition function, $Z^\prime_\domainVariables$.
+
+Note that there is now an interdependence between the optimal form for $\simProb(\domainVariables)$ and $\simProb(\nullVariables)$
+
+If the Hamiltonian decomponses in the the following form,
+$$
+E(\dataVariables | \stateVariables) + E(\stateVariables) = E(\dataVariables| \domainVariables) + E(\domainVariables, \nullVariables)
+$$
+this approximation becomes exact. More generally though the new lower bound is,
+$$
+\log I \geq -\log \physicsProb(\dataVariables) - \text{KL}\left(\simProb(\domainVariables) || \physicsProb(\domainVariables | \dataVariables)\right)  - \expDist{\log \frac{\physicsProb(\domainVariables|\dataVariables)\simProb(\nullVariables)}{\trueProb(\stateVariables|\dataVariables)}}{\simProb(\domainVariables)\simProb(\nullVariables)}  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
+$$
+where $\physicsProb(\domainVariables | \dataVariables) = \frac{\exp\left(-\beta \expDist{E(\dataVariables | \stateVariables) + E(\stateVariables)}{\simProb(\nullVariables)}\right)}{Z^\prime_{\domainVariables|\dataVariables}}$.
+
+
 \end{document}
