@@ -477,15 +477,20 @@ where we have introduced $E^\prime(\domainVariables) = \expDist{E(\stateVariable
 
 Note that there is now an interdependence between the optimal form for $\simProb(\domainVariables)$ and $\simProb(\nullVariables)$
 
+We can write the lower bound as,
+$$
+\log I \geq -\log \physicsProb(\dataVariables) - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}  - \expDist{\log \frac{\simProb(\domainVariables)\simProb(\nullVariables)}{\trueProb(\domainVariables,\nullVariables)}}{\simProb(\domainVariables)\simProb(\nullVariables)}  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
+$$
+$$
+\log I \geq -\log \physicsProb(\dataVariables) - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}  - \text{KL}\left(\simProb(\domainVariables)\simProb(\nullVariables)||\trueProb(\domainVariables,\nullVariables)\right)  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
+$$
+where 
+
+
 If the Hamiltonian decomponses in the the following form,
 $$
 E(\dataVariables | \stateVariables) + E(\stateVariables) = E(\dataVariables| \domainVariables) + E(\domainVariables, \nullVariables)
 $$
-this approximation becomes exact. More generally though the new lower bound is,
-$$
-\log I \geq -\log \physicsProb(\dataVariables) - \text{KL}\left(\simProb(\domainVariables) || \physicsProb(\domainVariables | \dataVariables)\right)  - \expDist{\log \frac{\physicsProb(\domainVariables|\dataVariables)\simProb(\nullVariables)}{\trueProb(\stateVariables|\dataVariables)}}{\simProb(\domainVariables)\simProb(\nullVariables)}  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
-$$
-where $\physicsProb(\domainVariables | \dataVariables) = \frac{\exp\left(-\beta \expDist{E(\dataVariables | \stateVariables) + E(\stateVariables)}{\simProb(\nullVariables)}\right)}{Z^\prime_{\domainVariables|\dataVariables}}$.
-
+then w
 
 \end{document}
