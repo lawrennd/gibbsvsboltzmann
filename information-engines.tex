@@ -24,6 +24,7 @@
 \newcommand{\dataVariables}{Y}
 \newcommand{\measuredVariables}{S}
 \newcommand{\parameterVector}{W}
+\newcommand{\separability}{{F_S}}
 \newcommand{\expDist}[2]{\left\langle #1 \right\rangle_{#2}}
 \newcommand{\trueProb}{\mathbb{P}}
 \newcommand{\simProb}{s}
@@ -445,7 +446,7 @@ the particular circumstance we currently find ourselves in.
 
 \section{Maximizing Intelligence Quotient}
 
-The intelligence quotient can be maximized by maximizing the lower bound with respect to $\simProb(\latentVariables)$, which in turn gives us the optimal form of $\physicsProb(\dataVariables)$. The lower bound on the log intelligence quotient is given by,
+The intelligence quotient can be maximized by maximizing the lower bound with respect to $\simProb(\stateVariables)$, which in turn gives us the optimal form of $\physicsProb(\dataVariables)$. The lower bound on the log intelligence quotient is given by,
 \[
 \log I \geq - \log \physicsProb(\dataVariables) -\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) - \beta E(\measuredVariables_\dataVariables = \textbf{1})
 \]
@@ -482,15 +483,131 @@ $$
 \log I \geq -\log \physicsProb(\dataVariables) - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}  - \expDist{\log \frac{\simProb(\domainVariables)\simProb(\nullVariables)}{\trueProb(\domainVariables,\nullVariables)}}{\simProb(\domainVariables)\simProb(\nullVariables)}  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
 $$
 $$
-\log I \geq -\log \physicsProb(\dataVariables) - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}  - \text{KL}\left(\simProb(\domainVariables)\simProb(\nullVariables)||\trueProb(\domainVariables,\nullVariables)\right)  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
+\log I \geq -\log \physicsProb(\dataVariables) + \log F_\domainVariables  + \log \separability  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
 $$
+where we have introduced the \emph{separability}, $\separability$,
+$$
+\log \separability = - \text{KL}\left(\simProb(\domainVariables)\simProb(\nullVariables)||\trueProb(\domainVariables,\nullVariables)\right)
+$$
+which represents how separable our choice of domain space and null space are in reality,
+and also we have defined,
+$$
+\log F_\domainVariables = - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}
+$$
+as the domain fidelity.
+
+\section{Parameters}
+
+We now introduce a set of parameters, $\parameterVector$. These parameters augment the true distribution,
+\[
+\trueProb(\stateVariables | \dataVariables) = \int \trueProb(\stateVariables, \parameterVector | \dataVariables) \text{d} \parameterVector,
+\]
+allowing us to lower bound
+\[
+\log \trueProb(\stateVariables | \dataVariables) \geq \int \simProb(\parameterVector|\stateVariables) \log \frac{\trueProb(\stateVariables, \parameterVector | \dataVariables)}{\simProb(\parameterVector|\stateVariables)} \text{d}\parameterVector
+\]
+and substituting into our lower bound on the intelligence quotient we have,
+\[
+\int \simProb(\stateVariables) \log \frac{\trueProb(\stateVariables | \dataVariables)}{\simProb(\stateVariables)} \geq \int \simProb(\parameterVector,\stateVariables) \log \frac{\trueProb(\stateVariables, \parameterVector | \dataVariables)}{\simProb(\parameterVector,\stateVariables)} \text{d}\parameterVector
+\]
+which we can rewrite as
+\[
+\int \simProb(\stateVariables) \log \frac{\trueProb(\stateVariables | \dataVariables)}{\simProb(\stateVariables)} \geq \int \simProb(\parameterVector) \log \frac{\trueProb(\parameterVector|\dataVariables)}{\simProb(\parameterVector)}\text{d} \parameterVector + \int \simProb(\parameterVector) \int \simProb(\stateVariables|\parameterVector) \log \frac{\trueProb(\stateVariables|\parameterVector, \dataVariables)}{\simProb(\stateVariables|\parameterVector)} \text{d} \stateVariables \text{d}\parameterVector
+\]
+
+\section{Parameters}
+
+We now introduce a set of auxiliary variables, $\parameterVector$. These variables allow us to control the domain simulation in the following way,
+\[
+\simProb(\domainVariables) = \int \simProb(\domainVariables|\parameterVector) \simProb(\parameterVector) \text{d} \parameterVector.
+\]
+Substituting into 
+\[
+\physicsProb(\dataVariables) = \frac{ \physicsProb(\dataVariables |\parameterVector) \physicsProb(\parameterVector)}{\physicsProb(\parameterVector|\dataVariables)}
+\]
+\[
+
+ 
+then we can write the domain fidelity as follows,
+\begin{align*}
+\log F_\domainVariables  = & \expDist{\log \frac{\trueProb(\dataVariables|\domainVariables, \nullVariables)\trueProb(\domainVariables|\parameterVector)\trueProb(\parameterVector) }{\trueProb(\dataVariables)\simProb(\domainVariables|\parameterVector)\pi(\parameterVector)}}{\simProb(\domainVariables | \parameterVector) \pi(\parameterVector)\simProb(\nullVariables)} - \frac{}
+\end{align*}
 where 
+\[
+\physicsProb(\dataVariables | \parameterVector) = \frac{1}{Z^\prime_{\dataVariables|\parameterVector}} \exp \expDist{-\beta E(\dataVariables | \domainVariables, \nullVariables)}{\simProb(\domainVariables|\parameterVector) \simProb(\nullVariables)}
+\]
 
 
 If the Hamiltonian decomponses in the the following form,
 $$
 E(\dataVariables | \stateVariables) + E(\stateVariables) = E(\dataVariables| \domainVariables) + E(\domainVariables, \nullVariables)
 $$
-then w
+
+
+\section{Parameterised Model}
+
+The next step is to include \emph{parameters} with the model. To do this
+we first separate a new set of auxiliary variables from the domain
+variables,
+\(\domainVariables \rightarrow \{\domainVariables, \parameterVector\}\)introduce
+a new distribution, \[
+\approxProb(\domainVariables, \parameterVector) = \physicsProb(\domainVariables | \parameterVector)\approxProb(\parameterVector)
+\] 
+\begin{align*}
+A^\prime_{\domainVariables|\parameterVector} = & -\frac{1}{\beta} \log \int \exp\left(-\beta E^\prime(\dataVariables |\domainVariables, \parameterVector) - \beta E^\prime(\domainVariables, \parameterVector)\right) \text{d}\domainVariables \text{d}\parameterVector\\
+= & -\frac{1}{\beta} \expDist{\log\frac{\exp\left(-\beta E^\prime(\dataVariables |\domainVariables, \parameterVector) - \beta E^\prime(\domainVariables, \parameterVector)\right)}{\approxProb(\domainVariables, \parameterVector)}}{\approxProb(\domainVariables, \parameterVector)} - \frac{1}{\beta} \expDist{\log\frac{\approxProb(\domainVariables , \parameterVector)}{\physicsProb(\domainVariables, \parameterVector | \dataVariables)}}{\approxProb(\domainVariables, \parameterVector)} \\
+= & -\frac{1}{\beta} \expDist{\log\frac{\exp\left(-\beta \expDist{E^\prime(\dataVariables |\domainVariables, \parameterVector) - \beta E^\prime(\domainVariables, \parameterVector)\right)}{\physicsProb(\domainVariables | \parameterVector)}}{\approxProb(\parameterVector)}}{\approxProb(\parameterVector)} + \frac{1}{\beta} \expDist{\log \physicsProb(\domainVariables | \parameterVector)}{\approxProb(\domainVariables, \parameterVector)} - \frac{1}{\beta} \expDist{\log\frac{\approxProb(\domainVariables , \parameterVector)}{\physicsProb(\domainVariables, \parameterVector | \dataVariables)}}{\approxProb(\domainVariables, \parameterVector)} \\
+= & -\frac{1}{\beta} \expDist{\log\frac{\exp\left(-\beta E^{\prime\prime}(\dataVariables |\parameterVector) - \beta E^{\prime\prime}(\parameterVector)\right)}{\approxProb(\parameterVector)}}{\approxProb(\parameterVector)} + \frac{1}{\beta} \expDist{\expDist{\log \physicsProb(\domainVariables | \parameterVector)}{\physicsProb(\domainVariables | \parameterVector)}}{\approxProb(\parameterVector)} - \frac{1}{\beta} \expDist{\expDist{\log\frac{\physicsProb(\domainVariables | \parameterVector)}{\physicsProb(\domainVariables| \parameterVector , \dataVariables)}}{\physicsProb(\domainVariables | \parameterVector)}}{\approxProb(\parameterVector)} - \frac{1}{\beta}\expDist{\log\frac{\approxProb(\parameterVector)}{\physicsProb(\parameterVector|\dataVariables)}}{\approxProb(\parameterVector)}
+\end{align*}
+
+If we define 
+\[
+\statsProb(\dataVariables | \parameterVector) = \frac{\exp\left(-\beta E^{\prime\prime}(\dataVariables |\parameterVector)\right)}{Z^{\prime\prime}_{\dataVariables | \parameterVector}}
+\] 
+and 
+\[
+\statsProb(\parameterVector) = \frac{\exp\left(-\beta E^{\prime\prime}(\parameterVector)\right)}{Z^{\prime\prime}_{\parameterVector}},
+\] 
+where 
+\[
+Z^{\prime\prime}_{\dataVariables | \parameterVector} = \int \exp\left(-\beta E^{\prime\prime}(\dataVariables |\parameterVector)\right) \text{d}\dataVariables
+\] 
+and 
+\[
+Z^{\prime\prime}_{\parameterVector} = \int \exp\left(-\beta E^{\prime\prime}(\parameterVector)\right) \text{d}\parameterVector
+\] 
+and 
+\[
+Z^{\prime\prime}_{\parameterVector|\dataVariables} = \int \exp\left(-\beta E^{\prime\prime}(\dataVariables |\parameterVector)\right)  + \exp\left(-\beta E^{\prime\prime}(\parameterVector)\right) \text{d}\parameterVector
+\] 
+and we set 
+\[
+\approxProb(\parameterVector) = \statsProb(\parameterVector |\dataVariables)
+\] 
+then we have 
+\[
+A^\prime_{\domainVariables|\parameterVector} = -\frac{1}{\beta} \log  Z^{\prime\prime}_{\parameterVector|\dataVariables} - T\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} - T\expDist{B_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}  - \frac{1}{\beta}\expDist{\log\frac{\statsProb(\parameterVector|\dataVariables)}{\physicsProb(\parameterVector|\dataVariables)}}{\statsProb(\parameterVector|\dataVariables)},
+\] 
+where 
+\[
+B^\prime_{\domainVariables | \parameterVector} = k_B \expDist{\log\frac{\physicsProb(\domainVariables | \parameterVector)}{\physicsProb(\domainVariables| \parameterVector , \dataVariables)}}{\physicsProb(\domainVariables | \parameterVector)}
+\] 
+so overall we have 
+\[
+A_{\stateVariables|\dataVariables} = -\frac{1}{\beta} \log  Z^{\prime\prime}_{\parameterVector|\dataVariables} - T\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} - T\expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}  - TM^\prime_{\parameterVector|\dataVariables} - TS^\prime_{\nullVariables|\dataVariables}- TD_{\stateVariables|\dataVariables},
+\] 
+where 
+\[
+M^\prime_{\stateVariables|\dataVariables} =  k_B\expDist{\log\frac{\statsProb(\parameterVector|\dataVariables)}{\physicsProb(\parameterVector|\dataVariables)}}{\statsProb(\parameterVector|\dataVariables)}.
+\] 
+Collecting terms 
+\[
+A_{\stateVariables|\dataVariables} = A^{\prime\prime}_{\parameterVector|\dataVariables} - T\left[\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} + S^\prime_{\nullVariables|\dataVariables}\right]   - T\left[M^\prime_{\parameterVector|\dataVariables} + D_{\stateVariables|\dataVariables} + \expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}\right]
+\] 
+Or 
+\[
+A^{\prime\prime}_{\parameterVector|\dataVariables} = A_{\stateVariables|\dataVariables} + T\left[\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} + S^\prime_{\nullVariables|\dataVariables}\right]  + T\left[M^\prime_{\parameterVector|\dataVariables} + D_{\stateVariables|\dataVariables} + \expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}\right]
+\]
+
 
 \end{document}
