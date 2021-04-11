@@ -28,6 +28,7 @@
 \newcommand{\expDist}[2]{\left\langle #1 \right\rangle_{#2}}
 \newcommand{\trueProb}{\mathbb{P}}
 \newcommand{\simProb}{s}
+\newcommand{\domainProb}{\hat{\mathbb{P}}}
 \newcommand{\physicsProb}{p}
 \newcommand{\approxProb}{q}
 \newcommand{\statsProb}{\pi}
@@ -492,28 +493,52 @@ $$
 which represents how separable our choice of domain space and null space are in reality,
 and also we have defined,
 $$
-\log F_\domainVariables = - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}
+\log F_\domainVariables = - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)},
 $$
-as the domain fidelity.
+as the domain fidelity. If the domain variables are selected such that,
+$$
+\trueProb(\dataVariables | \domainVariables, \nullVariables) = \trueProb(\dataVariables |\domainVariables)
+$$
+then we can write
+$$
+\log F_\domainVariables = - \text{KL}\left(\simProb(\domainVariables) || \domainProb(\domainVariables | \dataVariables) \right),
+$$
+where
+$$
+\domainProb(\domainVariables | \dataVariables) = \frac{\trueProb(\dataVariables | \domainVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}
+$$
 
 \section{Parameters}
 
-We now introduce a set of parameters, $\parameterVector$. These parameters augment the true distribution,
+We now introduce a set of auxiliary variables, $\parameterVector$. These auxiliary variables augment the domain distribution,
 \[
-\trueProb(\stateVariables | \dataVariables) = \int \trueProb(\stateVariables, \parameterVector | \dataVariables) \text{d} \parameterVector,
+\domainProb(\domainVariables | \dataVariables) = \int \domainProb(\domainVariables, \parameterVector | \dataVariables) \text{d} \parameterVector,
 \]
-allowing us to lower bound
+allowing us to lower bound the logarithm of the domain probability,
 \[
-\log \trueProb(\stateVariables | \dataVariables) \geq \int \simProb(\parameterVector|\stateVariables) \log \frac{\trueProb(\stateVariables, \parameterVector | \dataVariables)}{\simProb(\parameterVector|\stateVariables)} \text{d}\parameterVector
+\log \domainProb(\domainVariables | \dataVariables) \geq \int \simProb(\parameterVector|\domainVariables) \log \frac{\domainProb(\domainVariables, \parameterVector | \dataVariables)}{\simProb(\parameterVector|\domainVariables)} \text{d}\parameterVector,
 \]
-and substituting into our lower bound on the intelligence quotient we have,
+which in turn allows us to lower bound the domain fidelity, 
 \[
-\int \simProb(\stateVariables) \log \frac{\trueProb(\stateVariables | \dataVariables)}{\simProb(\stateVariables)} \geq \int \simProb(\parameterVector,\stateVariables) \log \frac{\trueProb(\stateVariables, \parameterVector | \dataVariables)}{\simProb(\parameterVector,\stateVariables)} \text{d}\parameterVector
+\log F_\domainVariables = \int \simProb(\domainVariables) \log \frac{\domainProb(\domainVariables | \dataVariables)}{\simProb(\domainVariables)} \geq \int \simProb(\parameterVector,\domainVariables) \log \frac{\domainProb(\domainVariables, \parameterVector | \dataVariables)}{\simProb(\parameterVector,\domainVariables)} \text{d}\parameterVector,
 \]
 which we can rewrite as
 \[
-\int \simProb(\stateVariables) \log \frac{\trueProb(\stateVariables | \dataVariables)}{\simProb(\stateVariables)} \geq \int \simProb(\parameterVector) \log \frac{\trueProb(\parameterVector|\dataVariables)}{\simProb(\parameterVector)}\text{d} \parameterVector + \int \simProb(\parameterVector) \int \simProb(\stateVariables|\parameterVector) \log \frac{\trueProb(\stateVariables|\parameterVector, \dataVariables)}{\simProb(\stateVariables|\parameterVector)} \text{d} \stateVariables \text{d}\parameterVector
+\log F_\domainVariables \geq \int \simProb(\parameterVector) \log \frac{\domainProb(\parameterVector|\dataVariables)}{\simProb(\parameterVector)}\text{d} \parameterVector + \int \simProb(\parameterVector) \int \simProb(\domainVariables|\parameterVector) \log \frac{\domainProb(\domainVariables|\parameterVector, \dataVariables)}{\simProb(\domainVariables|\parameterVector)} \text{d} \domainVariables \text{d}\parameterVector,
 \]
+or in terms of KL divergences,
+\[
+\log F_\domainVariables \geq -\text{KL}\left(\simProb(\parameterVector)|| \domainProb(\parameterVector|\dataVariables)\right) - \expDist{ \text{KL}\left(\simProb(\domainVariables|\parameterVector) || \domainProb(\domainVariables|\parameterVector, \dataVariables) \right)}{ \simProb(\parameterVector)} ,
+\]
+minimizing the lower bound on the intelligence quotient with respect to $\simProb(\domainVariables | \parameterVector)$ recovers,
+$$
+\simProb(\domainVariables | \parameterVector) = \domainProb(\domainVariables | \parameterVector)
+$$
+and minimizing the lower bound on the intelligence quotient with respect to $\simProb(\parameterVector)$ recovers,
+$$
+\simProb(\parameterVector) = \domainProb(\parameterVector)
+$$
+\todo{Need to prove these two statements, I think they work if the $E(Y|X)$ term inside the P from the KL divergence matches the $E(Y|X)$ inside the $p(Y)$} 
 
 \section{Parameters}
 
@@ -530,7 +555,7 @@ Substituting into
  
 then we can write the domain fidelity as follows,
 \begin{align*}
-\log F_\domainVariables  = & \expDist{\log \frac{\trueProb(\dataVariables|\domainVariables, \nullVariables)\trueProb(\domainVariables|\parameterVector)\trueProb(\parameterVector) }{\trueProb(\dataVariables)\simProb(\domainVariables|\parameterVector)\pi(\parameterVector)}}{\simProb(\domainVariables | \parameterVector) \pi(\parameterVector)\simProb(\nullVariables)} - \frac{}
+\log F_\domainVariables  = & \expDist{\log \frac{\domainProb(\dataVariables|\domainVariables, \nullVariables)\domainProb(\domainVariables|\parameterVector)\domainProb(\parameterVector) }{\domainProb(\dataVariables)\simProb(\domainVariables|\parameterVector)\pi(\parameterVector)}}{\simProb(\domainVariables | \parameterVector) \pi(\parameterVector)\simProb(\nullVariables)} - \frac{}
 \end{align*}
 where 
 \[
@@ -540,7 +565,7 @@ where
 
 If the Hamiltonian decomponses in the the following form,
 $$
-E(\dataVariables | \stateVariables) + E(\stateVariables) = E(\dataVariables| \domainVariables) + E(\domainVariables, \nullVariables)
+E(\dataVariables | \domainVariables) + E(\domainVariables) = E(\dataVariables| \domainVariables) + E(\domainVariables, \nullVariables)
 $$
 
 
@@ -594,19 +619,19 @@ B^\prime_{\domainVariables | \parameterVector} = k_B \expDist{\log\frac{\physics
 \] 
 so overall we have 
 \[
-A_{\stateVariables|\dataVariables} = -\frac{1}{\beta} \log  Z^{\prime\prime}_{\parameterVector|\dataVariables} - T\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} - T\expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}  - TM^\prime_{\parameterVector|\dataVariables} - TS^\prime_{\nullVariables|\dataVariables}- TD_{\stateVariables|\dataVariables},
+A_{\domainVariables|\dataVariables} = -\frac{1}{\beta} \log  Z^{\prime\prime}_{\parameterVector|\dataVariables} - T\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} - T\expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}  - TM^\prime_{\parameterVector|\dataVariables} - TS^\prime_{\nullVariables|\dataVariables}- TD_{\domainVariables|\dataVariables},
 \] 
 where 
 \[
-M^\prime_{\stateVariables|\dataVariables} =  k_B\expDist{\log\frac{\statsProb(\parameterVector|\dataVariables)}{\physicsProb(\parameterVector|\dataVariables)}}{\statsProb(\parameterVector|\dataVariables)}.
+M^\prime_{\domainVariables|\dataVariables} =  k_B\expDist{\log\frac{\statsProb(\parameterVector|\dataVariables)}{\physicsProb(\parameterVector|\dataVariables)}}{\statsProb(\parameterVector|\dataVariables)}.
 \] 
 Collecting terms 
 \[
-A_{\stateVariables|\dataVariables} = A^{\prime\prime}_{\parameterVector|\dataVariables} - T\left[\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} + S^\prime_{\nullVariables|\dataVariables}\right]   - T\left[M^\prime_{\parameterVector|\dataVariables} + D_{\stateVariables|\dataVariables} + \expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}\right]
+A_{\domainVariables|\dataVariables} = A^{\prime\prime}_{\parameterVector|\dataVariables} - T\left[\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} + S^\prime_{\nullVariables|\dataVariables}\right]   - T\left[M^\prime_{\parameterVector|\dataVariables} + D_{\domainVariables|\dataVariables} + \expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}\right]
 \] 
 Or 
 \[
-A^{\prime\prime}_{\parameterVector|\dataVariables} = A_{\stateVariables|\dataVariables} + T\left[\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} + S^\prime_{\nullVariables|\dataVariables}\right]  + T\left[M^\prime_{\parameterVector|\dataVariables} + D_{\stateVariables|\dataVariables} + \expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}\right]
+A^{\prime\prime}_{\parameterVector|\dataVariables} = A_{\domainVariables|\dataVariables} + T\left[\expDist{S^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)} + S^\prime_{\nullVariables|\dataVariables}\right]  + T\left[M^\prime_{\parameterVector|\dataVariables} + D_{\stateVariables|\dataVariables} + \expDist{B^\prime_{\domainVariables | \parameterVector}}{\statsProb(\parameterVector | \dataVariables)}\right]
 \]
 
 
