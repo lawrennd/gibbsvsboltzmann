@@ -559,4 +559,17 @@ $$
 In practice, we want to find the tightest bound on the intelligence ratio. Above we've shown what the form 
 
 
+Some thoughts:
+
+\begin{enumerate}
+    \item Choose parameters such that $\physicsProb(\dataVariables|\parameterVector) = \prod_{i=1}^n \physicsProb(\dataPoint_i |\parameterVector)$
+    \item Choosing robust models ... what about heavy tailed vs light tailed $\physicsProb(\dataPoint_i |\parameterVector)$. 
+\end{enumerate}
+
+Also for a fixed data set $\dataVariables$, the actual intelligence quotient is fixed. And we are supposed to be computing a lower bound. 
+
+Imagine we have two models, and one model has a higher negative log probability than the other. It doesn't mean it's got a higher intelligence quotient, because that's fixed. Instead, it means our estimate of the intelligence coefficient is likely to be over optimistic. 
+
+It feels likely there's some minimax stuff going on here. We want the model $\physicsProb(\dataVariables)$ which minimise the maximum ... because this will be the one with the highest fidelity and representability. Need to formalise that argument.
+
 \end{document}
