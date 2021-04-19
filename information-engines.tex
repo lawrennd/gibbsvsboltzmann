@@ -7,7 +7,7 @@
 \usepackage[super]{natbib}
 \bibliographystyle{unsrtnat}
 
-\title{Information Engines: Intelligence and Thermodynamics}
+\title{Szilard Intelligence}
 \author{Neil D. Lawrence}
 \date{9th January 2021}
 
@@ -50,13 +50,12 @@ In practice energy is conserved, so the resource of interest is \emph{free energ
 \mathbb{P}(\phaseVariables) = \frac{1}{Z_\phaseVariables} \exp(-\beta
 E(\phaseVariables)),
 \] 
-where \(E(\phaseVariables)\) is the \emph{Hamiltonian} which encodes the energy of the system associated with the microstates
-\(\phaseVariables\) and the partition function is then given by 
+where \(E(\phaseVariables)\) is the \emph{Hamiltonian} which encodes the energy of the system associated with the microstates \(\phaseVariables\) and the partition function is then given by 
 \[
 Z_\phaseVariables = \sum_\phaseVariables \exp(-\beta E(\phaseVariables)),
 \] 
 where the \(Z\) comes from the German for ``sum over states'' or
-\emph{Zustandssumme}, reflecting Boltzmann's Austrian heritage. In the
+\emph{Zustandssumme}, reflecting Ludwig Boltzmann's Austrian heritage. Boltzmann was the first to make the connection between probability and entropy\citep{Boltzmann-warmetheorie77,}In the
 case of continuous systems we have,
 \[
 Z_{\phaseVariables} = \frac{1}{h^3}\int \exp(-\beta E(\phaseVariables)) \text{d} \phaseVariables
@@ -83,15 +82,13 @@ is the \emph{Helmholtz free energy} and
 \] 
 is the entropy of the system and \(T\) is the temperature. This decomposition is fundamental to thermodynamics, but it is also easily derived mathematically using the definition of the Boltzmann distribution (see \ref{sec-decomposition-of-total-energy}).
 
-This equation expresses a fundamental decomposition of the total
+This equation expresses a decomposition of the total
 energy into the available energy, \(A_\phaseVariables\) and energy
-that is not available, \(TS_\phaseVariables\). In terms of the resource we are interested in it is the \emph{free energy}, $A_\phaseVariables$, we are interested in conserving through our actions.
+that is not available, \(TS_\phaseVariables\). In terms of the resource we are interested in it is the \emph{free energy}, $A_\phaseVariables$, that we would like to maximise as this is the energy that remains available to us for work.
 
 \subsection{Time}
 
-Beyond available energy, the other other fundamental resource of interest is time. Given two actions that modify the state of the universe with the same resulting change in free energy, we might argue that the action that achieved that state quicker was the more intelligent action. 
-
-For the moment, however, we will ignore the influence of time, focusing only on the available energy change. 
+Beyond available energy, the other other fundamental resource of interest is time. Given two actions that modify the state of the universe with the same resulting change in free energy, we might argue that the action that achieved that state quicker was the more intelligent action. For the moment, however, we will ignore the influence of time, focusing only on the available energy change. 
 
 \subsection{Intelligence and Energy} \label{sec-intelligence-and-energy}
 
@@ -186,11 +183,11 @@ This is the representation of our universe in its updated state. We can now comp
 \end{align*}
 which is also recognised as the Shannon information we gain through the observation \citep{Shannon-info48} under Boltzmann's distribution. The thermodynamic temperature, $\beta$, relates the dimensionless information to the available energy gain in Joules. Note that this connection between thermodynamics and information predates Shannon. It goes back to the work of Szilard\citep{Szilard-intelligenter29} who was considering a thought experiment known as \emph{Maxwell's demon}\citep{Maxwell-theory71,Leff-maxwell90}. In the thought experiment a demon transgresses the second law of thermodynamics by partitioning an isolated box of gas into two parts. The demon allows high energy particles to pass from the left hand side to the right hand side through opening a slot when they approach the partition. Similarly low energy particles are allowed to pass from right to left. In this way the entropy of the gas in the box appears to be reduced. 
 
-Maxwell included the demon in his book which gave his theory of heat\citep{Maxwell-theory71}. He was illustrating that the second law holds only in expectation, but the thought experiment intrigued the community and was developed further by Szilard\citep{Szilard-intelligenter29}. He showed that such a demon would need to have access to information about the microstates of gas particles in the box to operate. The reduction in entropy that the demon can bring about is balanced by the information that the demon has, thus preserving the second law and introducing an equivalence between thermodynamic entropy and information (through the thermodynamic temperature).
+Maxwell included the demon in his book which gave his theory of heat\citep{Maxwell-theory71}. He was illustrating that the second law holds only in expectation, but the thought experiment intrigued the community and was developed further by Szilard\citep{Szilard-intelligenter29}. Szilard reduced the system to one containing a single particle (now known as a Szilard engine), and he showed that the demon introduces information to the system which counteracts the reduction in entropy. In this way Szilard introduced an equivalence between thermodynamic entropy and information (through the thermodynamic temperature).
 
-The second law of thermodynamics states that entropy cannot decrease as time proceeds in a forward direction. It is through the second law that we understand the impossibility of perpetual motion machines and the irreversibility of certain physical processes. So it is through Maxwell's demon and Szilard's equation of information and energy that turn to a thermodynamic inspiration for our definition of intelligence.
+The second law of thermodynamics states that entropy cannot decrease as time proceeds in a forward direction. It is through the second law that we understand the impossibility of perpetual motion machines and the irreversibility of certain physical processes. So it is through Maxwell's demon and Szilard's equation of information and energy that we turn to a thermodynamic inspiration for our definition of intelligence. For this reason we use the term Szilard intelligence to refer to our definition.
 
-In the latter half of the 20th century and the first part of this century, discussion about Maxwell's demon centres on where the demon is required to consume energy in the information gathering process. Our focus is different, we are assuming that interactions with the system will require energy (whether through measurements or interventions). So the available energy gain the physical plausibility of intervening in the system in an energy-free manner, the focus firmly being on how the demon Our interventions 
+In the latter half of the 20th century and the first part of this century, discussion about Maxwell's demon centred on how the demon is required to consume energy in the information gathering process . Our focus is different, we are assuming that interactions with the system will require energy (whether through measurements or interventions). So the available energy gain the physical plausibility of intervening in the system in an energy-free manner, the focus firmly being on how the demon Our interventions 
 This needs to be traded off against the cost of
 observing given by $E(\measuredVariables=\measuredValue)$.
 
@@ -202,141 +199,19 @@ action worth taking.
 
 \subsection{Intelligence Quotient}
 
-We can define a dimensionless quotient the intelligence of an action
-(where action is taken to mean a change of $\measuredVariables$) to
-be,
+We define a dimensionless quotient to represent the Szilard intelligence of an action
+(where action is taken to mean a change of $\measuredVariables$) to be,
 \[
-I = \frac{\exp(-\beta E(\measuredVariables=\measuredValue))}{\trueProb(\dataVariables)},\]
-where $\beta$ is the thermodynamic temperature \(\beta = \frac{1}{Tk_B}\).
+I = \frac{\exp(-\beta E(\measuredVariables=\measuredValue))}{\trueProb(\dataVariables)},
+\]
+where $\beta$ is again the thermodynamic temperature \(\beta = \frac{1}{Tk_B}\). Our definition allows us to express the available energy gain in terms of the logarithm of the quotient as follows,
+\[
+\Delta A_\dataVariables = T k_B\log I,
+\]
+so we see that the intelligence quotient is a critical quantity in estimating available energy.
 
-This allows us to express the available energy change as a result of
-an action in terms of the intelligence quotient as follows,
-\[
-\Delta E = T k_B\log I,
-\]
-so we see that the log intelligence quotient is a critical quantity. 
+Note that our definition of Szilard intelligence doesn't require a mechanism by which the intelligent action is occurring, it merely relates the measurable and manipulatable states $\dataVariables$, to the microstates of the system, $\stateVariables$, from which available energy originates, through the Hamiltonian.
 
-Since we need to make our decisions about which variables to observe
-before we know their values, we can only consider this quotient in
-expectation.  and we can also consider the expected available energy
-change,
-\[
-\expDist{\Delta E}{\trueProb(\dataVariables)} = T k_B\expDist{\log I}{\trueProb(\dataVariables)}.
-\]
-Now we are faced with the problem of approximating the available
-energy because we don't have direct access to
-$\trueProb(\dataVariables)$.
-
-Our first approach will be to lower bound the expected intelligence
-quotient. Introducing a variational distribution
-$\simProb(\dataVariables)$, and considering the expected log
-intelligence quotient under this distribution we have,
-\[
-\expDist{\log I}{\simProb(\dataVariables)}   = - \beta E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log \trueProb(\dataVariables)}{\simProb(\dataVariables)}
-\]
-which is lower bounded by,
-\begin{equation}
-  \expDist{\log I}{\simProb(\dataVariables)} \geq - \beta
-  E(\measuredVariables_\dataVariables=\textbf{1}) - \expDist{\log
-    \simProb(\dataVariables)}{\simProb(\dataVariables)}, \label{eqn-lir-lower}
-\end{equation}
-giving us a lower bound on the expected log intelligence quotient,
-where the expectation is taken under the variational
-distribution. Maximising this lower bound implies maximising the
-entropy of $\simProb(\dataVariables)$. Unfortunately, the entropy is
-unbounded. Which implies that the expected intelligence quotient under
-a general distribution $\simProb(\dataVariables)$ is also
-unbounded. We need more constraints on $\simProb(\cdot)$ to make
-progress.
-
-We can rewrite $\log \physicsProb(\dataVariables)$ as
-\begin{align}
-    \log \trueProb(\dataVariables) & =
-    \expDist{\trueProb(\dataVariables,
-      \stateVariables)}{\simProb(\stateVariables )} + \expDist{\log
-      \simProb(\stateVariables)}{\simProb(\stateVariables)} +
-    \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
-    \nonumber \\ & = -\beta\expDist{ E(\dataVariables |
-      \stateVariables)}{\simProb(\stateVariables)}
-    -\beta\expDist{E(\stateVariables)}{\simProb(\stateVariables)} -
-    \log Z_{\stateVariables,\dataVariables} + \expDist{\log
-      \simProb(\stateVariables)}{\simProb(\stateVariables)} +
-    \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) \label{eqn-true-log-likelihood-1}
-\end{align}
-and now note that
-\[
-- \log Z_{\stateVariables,\dataVariables} =
-\beta\expDist{E(\dataVariables |
-  \stateVariables)}{\simProb(\stateVariables)\trueProb(\dataVariables)}
-+ \beta\expDist{E(\stateVariables)}{\simProb(\stateVariables )} -
-k_B^{-1}S_\dataVariables -\expDist{\log
-  \simProb(\stateVariables)}{\simProb(\stateVariables)} -
-\expDist{\text{KL}(\simProb(\stateVariables) ||
-  \trueProb(\stateVariables |
-  \dataVariables))}{\trueProb(\dataVariables)}
-\]
-if we now define
-\[
-\physicsProb(\dataVariables) = \frac{\exp\left(-\beta
-  \expDist{E(\dataVariables |
-    \stateVariables)}{\simProb(\stateVariables)}\right)}{Z^\prime_\dataVariables}
-\]
-then we can write
-\[
-\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables) +
-\text{KL}(\trueProb(\dataVariables)||\physicsProb(\dataVariables)) +
-\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
--
-\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
-\]
-so we can show that
-\[
-\log \trueProb(\dataVariables) \geq \log \physicsProb(\dataVariables)
--
-\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
-\]
-Maximizing this lower bound is achieved through minimizing
-$\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}$,
-in other words, finding a variational distribution which represents
-how the microstates behave correctly. Maximising this bound improves
-the physical plausibility of the model. We call
-$\simProb(\stateVariables)$ the \emph{simulation}\footnote{Because the paper bridges some different fields, and tries to equate
-thermodynamic and information theoretic terms with words that are
-widely used in modelling, it may be seen as abusing terminology in
-parts. So to clarify at the outset, we are using some general terms in
-very specific ways.
-
-In particular, we use the word \emph{simulation} to imply a physical
-model over the microstates of the universe that represents our 'best
-practical' understanding of the underlying physics. In what follows
-this simulation is denoted by
-$\physicsProb(\stateVariables|\dataVariables)$. Alongside this we have
-the \emph{data model}, which represents the marginal distribution for
-the data we observe, $\physicsProb(\dataVariables)$. Quite often in
-the below we will refer to this simply as `the model' as it will turn
-out to be one of the main objects of focus.
-} and we call
-$\exp\left(-
-\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}\right)$
-the global simulation fidelity, $F_G$,
-\[
-\log F_G =
--\expDist{\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))}{\trueProb(\dataVariables)}.
-\]
-Note that the fidelities we define vary between 0 and 1, with 1 being
-equivalent to 100\% faithful, meaning that the match between the two
-distributions is perfect.
-
-This in turn gives us an upper bound on our log intelligence quotient,
-\[
-\log I \leq -\beta E(\measuredVariables_\dataVariables = \textbf{1})
--\log \physicsProb(\dataVariables) - \log F_G.
-\]
-So we can write the intelligence quotient as,
-\[
-I \leq
-\frac{1}{F_G}\frac{\exp\left(-E(\measuredVariables_\dataVariables=\textbf{1})\right)}{\physicsProb(\dataVariables)}.
-\]
 
 \subsection{Lower Bound}
 
@@ -587,5 +462,8 @@ the parameters of the statistical model,
 \section{Decomposition of Total Energy} \label{sec-decomposition-of-total-energy}
 
 The total energy of a system ...
+
+
+
 
 \end{document}
