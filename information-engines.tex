@@ -27,7 +27,7 @@
 \newcommand{\parameterVector}{W}
 \newcommand{\separability}{{F_S}}
 \newcommand{\expDist}[2]{\left\langle #1 \right\rangle_{#2}}
-\newcommand{\trueProb}{\mathbb{P}}
+\newcommand{\trueProb}{\mathfrak{P}}
 \newcommand{\simProb}{s}
 \newcommand{\domainProb}{\hat{\mathbb{P}}}
 \newcommand{\physicsProb}{p}
@@ -47,7 +47,7 @@ The objective of this paper is to provide a mathematical definition of intellige
 
 In practice energy is conserved, so the resource of interest is \emph{free energy} the energy available to us to do work.  In statistical physics, we write down the probability of the microstates in a Boltzmann distribution as follows,
 \[
-\mathbb{P}(\phaseVariables) = \frac{1}{Z_\phaseVariables} \exp(-\beta
+\trueProb(\phaseVariables) = \frac{1}{Z_\phaseVariables} \exp(-\beta
 E(\phaseVariables)),
 \] 
 where \(E(\phaseVariables)\) is the \emph{Hamiltonian} which encodes the energy of the system associated with the microstates \(\phaseVariables\) and the partition function is then given by 
@@ -183,13 +183,11 @@ This is the representation of our universe in its updated state. We can now comp
 \end{align*}
 which is also recognised as the Shannon information we gain through the observation \citep{Shannon-info48} under Boltzmann's distribution. The thermodynamic temperature, $\beta$, relates the dimensionless information to the available energy gain in Joules. Note that this connection between thermodynamics and information predates Shannon. It goes back to the work of Szilard\citep{Szilard-intelligenter29} who was considering a thought experiment known as \emph{Maxwell's demon}\citep{Maxwell-theory71,Leff-maxwell90}. In the thought experiment a demon transgresses the second law of thermodynamics by partitioning an isolated box of gas into two parts. The demon allows high energy particles to pass from the left hand side to the right hand side through opening a slot when they approach the partition. Similarly low energy particles are allowed to pass from right to left. In this way the entropy of the gas in the box appears to be reduced. 
 
-Maxwell included the demon in his book which gave his theory of heat\citep{Maxwell-theory71}. He was illustrating that the second law holds only in expectation, but the thought experiment intrigued the community and was developed further by Szilard\citep{Szilard-intelligenter29}. Szilard reduced the system to one containing a single particle (now known as a Szilard engine), and he showed that the demon introduces information to the system which counteracts the reduction in entropy. In this way Szilard introduced an equivalence between thermodynamic entropy and information (through the thermodynamic temperature).
+Maxwell included the demon in his book which gave his theory of heat\citep{Maxwell-theory71}. He was illustrating that the second law holds only in expectation, but the thought experiment intrigued the community and was developed further by Szilard\citep{Szilard-intelligenter29}. Szilard reduced the system to one containing a single particle (now known as a Szilard engine). He showed that the demon introduces information to the system which counteracts the reduction in entropy. In this way Szilard introduced an equivalence between thermodynamic entropy and information (through the thermodynamic temperature, $\beta$).
 
-The second law of thermodynamics states that entropy cannot decrease as time proceeds in a forward direction. It is through the second law that we understand the impossibility of perpetual motion machines and the irreversibility of certain physical processes. So it is through Maxwell's demon and Szilard's equation of information and energy that we turn to a thermodynamic inspiration for our definition of intelligence. For this reason we use the term Szilard intelligence to refer to our definition.
+The second law of thermodynamics states that entropy cannot decrease as time proceeds in a forward direction. It is through the second law that we understand the impossibility of perpetual motion machines and the irreversibility of certain physical processes. So it is from Maxwell's demon and Szilard's engine that we draw our inspiration for our  definition of intelligence. For this reason we call it Szilard intelligence.
 
-In the latter half of the 20th century and the first part of this century, discussion about Maxwell's demon centred on how the demon is required to consume energy in the information gathering process . Our focus is different, we are assuming that interactions with the system will require energy (whether through measurements or interventions). So the available energy gain the physical plausibility of intervening in the system in an energy-free manner, the focus firmly being on how the demon Our interventions 
-This needs to be traded off against the cost of
-observing given by $E(\measuredVariables=\measuredValue)$.
+In physics, much of the discussion of Szilard's paper dwells on where energy is required for the demon to store or acquire the information. We might think of this as an attempt to lower bound $E(\measuredVariables=\measuredValue)$. In this paper, our focus is different. We assume that any interaction with the system will \emph{may} require energy (whether through measurements or interventions). So the available energy gain needs to be traded off against the cost of intervention given by $E(\measuredVariables=\measuredValue)$. 
 
 This is the fundamental relation between information and energy that
 we need to pursue our definition of intelligence. By measuring our
@@ -204,114 +202,58 @@ We define a dimensionless quotient to represent the Szilard intelligence of an a
 \[
 I = \frac{\exp(-\beta E(\measuredVariables=\measuredValue))}{\trueProb(\dataVariables)},
 \]
-where $\beta$ is again the thermodynamic temperature \(\beta = \frac{1}{Tk_B}\). Our definition allows us to express the available energy gain in terms of the logarithm of the quotient as follows,
+where $\beta$ is again the thermodynamic temperature \(\beta = \frac{1}{Tk_B}\). A demon that was infringing the second law of thermodynamics would have a Szilard coefficient greater than one. What Szilard's work suggested is that for the second law to be preserved, the Szilard coefficient must be upper bounded by 1. We can express the available energy gain in terms of the logarithm of the quotient as follows,
 \[
 \Delta A_\dataVariables = T k_B\log I,
 \]
-so we see that the intelligence quotient is a critical quantity in estimating available energy.
+which since $I\leq 1$ is always zero or negative in sign. 
 
-Note that our definition of Szilard intelligence doesn't require a mechanism by which the intelligent action is occurring, it merely relates the measurable and manipulatable states $\dataVariables$, to the microstates of the system, $\stateVariables$, from which available energy originates, through the Hamiltonian.
+The upper bound on the Szilard coefficient provides a thermodynamic upper limit on the intelligence of a decision given by the second law. 
 
+Note that our definition of the Szilard coefficient for scoring intelligence doesn't require us to define a mechanism by which the intelligent action is occurring, it merely relates the measurable and manipulable states $\dataVariables$, to the energy of the system.
+
+The most intelligent action is the one that achieves the desired state $\dataVariable = \dataValue$ with the largest Szilard coefficient which corresponds to the smallest loss in available energy. The optimal action under the Szilard coefficient involves trading of the information associated with a particular state, $-\log \trueProb(\dataVariables)$, with the energy cost of achieving that state.
+
+In practice, we typically won't have access to the distribution, $\trueProb(\cdot)$, so we cannot optimise our actions directly with respect to the Szilard coefficient. In the next section, we introduce a lower bound on the Szilard coefficient, one that is derived through introducing a physical simulation, $\simProb(\stateVariables)$.
 
 \subsection{Lower Bound}
 
-We can also write
-\[
-- \log Z_{\stateVariables,\dataVariables} =
-\beta\expDist{E(\dataVariables |
-  \stateVariables)}{\simProb(\stateVariables)\physicsProb(\dataVariables)}
-+ \beta\expDist{E(\stateVariables)}{\simProb(\stateVariables )} +
-\expDist{\log \trueProb(\dataVariables)}{\physicsProb(\dataVariables)}
--\expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} -
-\expDist{\text{KL}(\simProb(\stateVariables) ||
-  \physicsProb(\stateVariables |
-  \dataVariables))}{\physicsProb(\dataVariables)}
-\]
-which substituting into (\ref{eqn-true-log-likelihood-1}) gives
-\[
-\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables) +
-\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
-- \text{KL}(\physicsProb(\dataVariables) || \trueProb(\dataVariables))
-- \expDist{\text{KL}(\simProb(\stateVariables) ||
-  \physicsProb(\stateVariables |
-  \dataVariables))}{\physicsProb(\dataVariables)}
-\]
-and a corresponding \emph{upper} bound on $\log \trueProb(\dataVariables)$, 
+The upper bound on the Szilard coefficient is given by the second law. To obtain a lower bound on the coefficient, we must first \emph{upper} bound $\log \trueProb(\dataVariables)$. In Appendix \ref{sec-}
 \[
 \log \trueProb(\dataVariables) \leq \log \physicsProb(\dataVariables)
 +
 \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)).
 \]
-We define the $\exp\left(-
+where we have introduced a the distribution $\simProb(\stateVariables)$ to represent our \emph{simulation} of  $\stateVariables$. For our purposes, a simulation is our best approximation of the physical world according to our understanding. The model, $\physicsProb(\dataVariables)$ is defined as,
+$$
+\physicsProb(\dataVariables) = \frac{\exp(-\beta \expDist{E(\dataVariables|\stateVariables)}{\simProb(\stateVariables)}}{Z^\prime_\dataVariables}
+$$
+where $Z^\prime_\dataVariables = \sum_\dataVariables \exp(-\beta \expDist{E(\dataVariables|\stateVariables)}{\simProb(\stateVariables)}$. 
+
+The notation $\text{KL}(\simProb(\cdot)||\trueProb(\cdot))$ represents the Kullback Leibler (KL) divergence\citep{Kullback-info51} between the two distributions, $\simProb(\cdot)$ and $\trueProb(\cdot)$ and is defined by,
+$$
+\text{KL}(\simProb(\stateVariables) || \trueProb(\stateVariables)) = \sum_\stateVariables \simProb(\stateVariables) \log\frac{\simProb(\stateVariables)}{\trueProb(\stateVariables)} \geq 0.
+$$
+The KL divergence is a standard information theoretic measure of divergence between two distributions. In our derivations we will commonly make use of \emph{fidelity}. We define the $\exp\left(-
 \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))\right)$
 to be the \emph{contextual} simulation fidelity, $F_C$,
 \[
 \log F_C =
 -\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)).
 \]
-and note the relationship between the contextual and global simulation
-fidelities,
+and we can now lower bound the Szilard coefficient,
 \[
-\log F_G = \expDist{\log F_C}{\trueProb(\dataVariables)}.
-\]
-and we can now lower bound the intelligence quotient,
-\[
-I \geq F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables=
-  \textbf{1})\right)}{\physicsProb(\dataVariables)}.
-\]
-giving us a range for the intelligence quotient,
-\[
-F_C \frac{\exp\left(-E(\measuredVariables_\dataVariables=
-  \textbf{1})\right)}{\physicsProb(\dataVariables)} \leq I \leq
-\frac{1}{F_G}\frac{\exp\left(-E(\measuredVariables_\dataVariables=
-  \textbf{1})\right)}{\physicsProb(\dataVariables)}.
+I \geq F_C \frac{\exp\left(-E(\measuredVariables=\measuredValue)\right)}{\physicsProb(\dataVariables)}.
 \]
 
-\subsection{Global and Local Simulations}
 
-The two different simulation fidelities represent a fundamental
-tension in modelling. The global simulation fidelity gives us a
-simulation that tries to be valid across the different data that we
-might observe, $\trueProb(\dataVariables)$. The local simulation
-fidelity is specific to the data we have, $\dataVariables$. The global
-simulation fidelity is associated with our global understanding of
-physical laws. The contextual simulation fidelity is associated with
-the particular circumstance we currently find ourselves in.
+\subsection{Maximizing the Bound on the Szilard Coefficient}
 
-
-
-\begin{figure}
-    \centering
-    \def\svgwidth{\textwidth}
-   \input{./diagrams/py-bounds.tex}
-    \caption{Visualisation of the lower and upper bound on
-      $\trueProb(\dataVariables)$ to highlight how the approximation,
-      $\physicsProb(\dataVariables)$, corresponds to the bounds
-      combining with the fidelities, $F_C$.}
-    \label{fig-py-bounds}
-\end{figure}
-
-
-
-\begin{figure}
-  \centering
-  \def\svgwidth{\textwidth}
-    \input{./diagrams/log-py-bounds.tex}
-    \caption{Visualisation of the lower and upper bound on $\log
-      \trueProb(\dataVariables)$ to highlight how the approximation,
-      $\log \physicsProb(\dataVariables)$, corresponds to the bounds
-      combining with the fidelities, $\log F_C$ and $\log F_G$.}
-    \label{fig-log-py-bounds}
-\end{figure}
-
-
-\section{Maximizing Intelligence Quotient}
-
-The intelligence quotient can be maximized by maximizing the lower bound with respect to $\simProb(\stateVariables)$, which in turn gives us the optimal form of $\physicsProb(\dataVariables)$. The lower bound on the log intelligence quotient is given by,
+The bound can be tightened by maximising with respect to $\simProb(\stateVariables)$, which in turn gives us the optimal form of $\physicsProb(\dataVariables)$. The lower bound on the log intelligence quotient is given by,
 \[
 \log I \geq - \log \physicsProb(\dataVariables) -\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) - \beta E(\measuredVariables_\dataVariables = \textbf{1})
 \]
-recalling that $\log \physicsProb = \frac{\expDist{E(\dataVariables|\stateVariables)}{\simProb(\stateVariables)}}{Z^\prime_\dataVariables}$ and focussing on the terms that are dependent on $\simProb(\stateVariables)$ we have,
+recalling that $\log \physicsProb = \frac{\expDist{E(\dataVariables|\stateVariables)}{\simProb(\stateVariables)}}{Z^\prime_\dataVariables}$ and focusing on the terms that are dependent on $\simProb(\stateVariables)$ we have,
 \[
 \log I \geq \beta \expDist{E(\stateVariables)}{\simProb(\stateVariables)} - \expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} + \text{const.},
 \]
@@ -319,13 +261,15 @@ where $\text{const.} = \log Z^\prime_Y - \log Z_{\stateVariables|\measuredVariab
 \[
 \simProb(\stateVariables) = \trueProb(\stateVariables)
 \]
-giving us the unsurprising conclusion that the maximum intelligence quotient is given by setting our simulation to be equal to the true distribution of the microstates, $\trueProb(\stateVariables)$. 
+giving us the unsurprising conclusion that the lower bound on the Szilard coefficient quotient is maximised by setting our simulation to be equal to the true distribution of the microstates, $\trueProb(\stateVariables)$, at which point we recover the true Szilard coefficient.
 
-However, this is generally impractical. In our set up $\stateVariables$, includes all the microstates of the Universe. We are unlikely to be able to build an accurate simulation across all these variables. So our first step is to constrain our simulation such that it focuses on variables of interest.
+However, since our system is unbounded in scope, and $\stateVariables$ involves all microstates of the Universe, this is quite impractical. So our first step will be to constrain our simulation such that it focuses on variables of interest.
 
 \subsection{Null Space and Domain Space}
 
-We divide the microstates of the Universe into two parts, we call one the null space, and denote it by $\nullVariables$. These are the microstates in the Universe that we'd prefer to ignore in our simulation. Then we have the domain space, which we denote by $\domainVariables$. These are the microstates that we considere directly relevant for our problem. So that we can factorise our Universe into different simulations for use in different contexts, we then make the assumption that
+So far we have considered a model that contains all the microstates of the Universe, $\stateVariables$. But in practice, when modelling we normally focus on a particular domain. For example, in climate modelling we develop detailed models of the oceans independently from models of the chemistry of the upper atmosphere. Where these two models interact, they do so at defined interfaces. To reflect this we divide the state space into two parts, we call one the null space, and denote it by $\nullVariables$. These are the microstates in the Universe that we'd prefer to ignore in the simulation we're focussed on. The second part we call the domain space, which we denote by $\domainVariables$. These are the microstates that we consider directly relevant for the problem at hand. 
+
+As in the case of the climate model separation, we expect to have have different simulations for different contexts. So that we can factorise our Universe into different simulations for use in different contexts, we then make the assumption that
 \[
 \simProb(\stateVariables) = \simProb(\nullVariables) \simProb(\domainVariables)
 \]
@@ -463,7 +407,41 @@ the parameters of the statistical model,
 
 The total energy of a system ...
 
+\section{Lower Bound on $-\log \trueProb(\dataVariable)$} \label{sec-upper-bound-log-prob}
 
-
-
+Rewrite $\log \trueProb(\dataVariables)$ as
+\begin{align}
+    \log \trueProb(\dataVariables) & =
+    \expDist{\trueProb(\dataVariables,
+      \stateVariables)}{\simProb(\stateVariables )} + \expDist{\log
+      \simProb(\stateVariables)}{\simProb(\stateVariables)} +
+    \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
+    \nonumber \\ & = -\beta\expDist{ E(\dataVariables |
+      \stateVariables)}{\simProb(\stateVariables)}
+    -\beta\expDist{E(\stateVariables)}{\simProb(\stateVariables)} -
+    \log Z_{\stateVariables,\dataVariables} + \expDist{\log
+      \simProb(\stateVariables)}{\simProb(\stateVariables)} +
+    \text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables)) \label{eqn-true-log-likelihood-1}
+\end{align}
+and then rewrite the log partition function of the system as follows,
+\[
+- \log Z_{\stateVariables,\dataVariables} =
+\beta\expDist{E(\dataVariables |
+  \stateVariables)}{\simProb(\stateVariables)\physicsProb(\dataVariables)}
++ \beta\expDist{E(\stateVariables)}{\simProb(\stateVariables )} +
+\expDist{\log \trueProb(\dataVariables)}{\physicsProb(\dataVariables)}
+-\expDist{\log \simProb(\stateVariables)}{\simProb(\stateVariables)} -
+\expDist{\text{KL}(\simProb(\stateVariables) ||
+  \physicsProb(\stateVariables |
+  \dataVariables))}{\physicsProb(\dataVariables)}
+\]
+which substituting into (\ref{eqn-true-log-likelihood-1}) gives
+\[
+\log \trueProb(\dataVariables) = \log \physicsProb(\dataVariables) +
+\text{KL}(\simProb(\stateVariables)||\trueProb(\stateVariables|\dataVariables))
+- \text{KL}(\physicsProb(\dataVariables) || \trueProb(\dataVariables))
+- \expDist{\text{KL}(\simProb(\stateVariables) ||
+  \physicsProb(\stateVariables |
+  \dataVariables))}{\physicsProb(\dataVariables)}
+\]
 \end{document}

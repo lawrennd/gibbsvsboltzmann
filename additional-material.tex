@@ -135,7 +135,42 @@ But the fidelity is hard to compute directly, so we can also note that we have a
 
 Alternatively, we can see that 
 then we can see the gap between our lower bound from \ref{eqn-lir-lower} is precisely given by the negative logarithm of the simulation fidelity, $\log F$. If we maximize fidelity, then we can obtain a tight approximation to the intelligence ratio. Typically, this will be an over estimate of the intelligence ratio, and the difference between the (unknown) truth and our value is given by the negative log fidelity. 
+\subsection{Global and Local Simulations}
 
+The two different simulation fidelities represent a fundamental
+tension in modelling. The global simulation fidelity gives us a
+simulation that tries to be valid across the different data that we
+might observe, $\trueProb(\dataVariables)$. The local simulation
+fidelity is specific to the data we have, $\dataVariables$. The global
+simulation fidelity is associated with our global understanding of
+physical laws. The contextual simulation fidelity is associated with
+the particular circumstance we currently find ourselves in.
+
+
+
+\begin{figure}
+    \centering
+    \def\svgwidth{\textwidth}
+   \input{./diagrams/py-bounds.tex}
+    \caption{Visualisation of the lower and upper bound on
+      $\trueProb(\dataVariables)$ to highlight how the approximation,
+      $\physicsProb(\dataVariables)$, corresponds to the bounds
+      combining with the fidelities, $F_C$.}
+    \label{fig-py-bounds}
+\end{figure}
+
+
+
+\begin{figure}
+  \centering
+  \def\svgwidth{\textwidth}
+    \input{./diagrams/log-py-bounds.tex}
+    \caption{Visualisation of the lower and upper bound on $\log
+      \trueProb(\dataVariables)$ to highlight how the approximation,
+      $\log \physicsProb(\dataVariables)$, corresponds to the bounds
+      combining with the fidelities, $\log F_C$ and $\log F_G$.}
+    \label{fig-log-py-bounds}
+\end{figure}
 \subsection{Null Space and Domain Space}
 
 In the scenario as we've laid it out so far is dealing with the number of variables and/or microstates in the universe. But when considering an individual simulation, we don't incorporate all the variables in the universe. There are particular variables we include in our model, and other variables that we choose to ignore. 
