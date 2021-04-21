@@ -29,7 +29,7 @@
 \newcommand{\expDist}[2]{\left\langle #1 \right\rangle_{#2}}
 \newcommand{\trueProb}{\mathfrak{P}}
 \newcommand{\simProb}{s}
-\newcommand{\domainProb}{\hat{\mathbb{P}}}
+\newcommand{\domainProb}{\mathbb{P}}
 \newcommand{\physicsProb}{p}
 \newcommand{\approxProb}{q}
 \newcommand{\statsProb}{\pi}
@@ -267,26 +267,23 @@ However, since our system is unbounded in scope, and $\stateVariables$ involves 
 
 \subsection{Null Space and Domain Space}
 
-So far we have considered a model that contains all the microstates of the Universe, $\stateVariables$. But in practice, when modelling we normally focus on a particular domain. For example, in climate modelling we develop detailed models of the oceans independently from models of the chemistry of the upper atmosphere. Where these two models interact, they do so at defined interfaces. To reflect this we divide the state space into two parts, we call one the null space, and denote it by $\nullVariables$. These are the microstates in the Universe that we'd prefer to ignore in the simulation we're focussed on. The second part we call the domain space, which we denote by $\domainVariables$. These are the microstates that we consider directly relevant for the problem at hand. 
+So far we have considered a model that contains all the microstates of the Universe, $\stateVariables$. But in practice, when modelling we normally focus on a particular domain. For example, in climate modelling we develop detailed models of the oceans independently from models of the chemistry of the upper atmosphere. Where these two models interact, they do so at defined interfaces. To reflect this we divide the state space into two parts, we call one the null space, and denote it by $\nullVariables$. These are the microstates in the Universe that we'd prefer to ignore in the simulation we're focused on. The second part we call the domain space, which we denote by $\domainVariables$. These are the microstates that we consider directly relevant for the problem at hand. 
 
-As in the case of the climate model separation, we expect to have have different simulations for different contexts. So that we can factorise our Universe into different simulations for use in different contexts, we then make the assumption that
+As in the case of the climate model separation, we expect to have have different simulations for different contexts. So that we can factorise our universe into different simulations for use in different contexts, we then make the assumption that
 \[
 \simProb(\stateVariables) = \simProb(\nullVariables) \simProb(\domainVariables)
 \]
-and we impose this as a constraint when maximizing the lower bound on the intelligence quotient.
+and we impose this as a constraint when maximising the lower bound on the intelligence quotient.
 
-Under this constraint, we obtain the following form for $\simProb(\domainVariables)$,
+Under this constraint, we obtain the following form for $\simProb(\domainVariables)$ (see Appendix \ref{sec-optimal-form-of-independent-simulation}),
 \[
 \simProb(\domainVariables) = \frac{\exp \left(-\beta E^\prime(\domainVariables)\right)}{Z^\prime_\domainVariables},
 \]
 where we have introduced $E^\prime(\domainVariables) = \expDist{E(\stateVariables)}{\simProb(\nullVariables)}$ as well as the domain simulation's partition function, $Z^\prime_\domainVariables$.
 
-Note that there is now an interdependence between the optimal form for $\simProb(\domainVariables)$ and $\simProb(\nullVariables)$
+Note that despite our independence assumption between the null space and the domain simulation there is an interdependence between the optimal form for $\simProb(\domainVariables)$ and $\simProb(\nullVariables)$. 
 
-We can write the lower bound as,
-$$
-\log I \geq -\log \physicsProb(\dataVariables) - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}  - \expDist{\log \frac{\simProb(\domainVariables)\simProb(\nullVariables)}{\trueProb(\domainVariables,\nullVariables)}}{\simProb(\domainVariables)\simProb(\nullVariables)}  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
-$$
+Using our factorised form we can write the lower bound on the Szilard coefficient as (see Appendix \ref{sec-optimal-form-of-independent-simulation}),
 $$
 \log I \geq -\log \physicsProb(\dataVariables) + \log F_\domainVariables  + \log \separability  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
 $$
@@ -294,12 +291,11 @@ where we have introduced the \emph{separability}, $\separability$,
 $$
 \log \separability = - \text{KL}\left(\simProb(\domainVariables)\simProb(\nullVariables)||\trueProb(\domainVariables,\nullVariables)\right)
 $$
-which represents how separable our choice of domain space and null space are in reality,
-and also we have defined,
+which represents how separable our choice of domain space and null space are in reality. If $\separability=1$ then the null space and domain space are fully separable. This would occur, for example, if the domain variables were isolated from the null space. We have also defined the \emph{domain fidelity},
 $$
 \log F_\domainVariables = - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)},
 $$
-as the domain fidelity. If the domain variables are selected such that,
+which represents the fidelity of our domain simulation to the as the domain fidelity. If the domain variables are selected such that,
 $$
 \trueProb(\dataVariables | \domainVariables, \nullVariables) = \trueProb(\dataVariables |\domainVariables)
 $$
@@ -444,4 +440,12 @@ which substituting into (\ref{eqn-true-log-likelihood-1}) gives
   \physicsProb(\stateVariables |
   \dataVariables))}{\physicsProb(\dataVariables)}
 \]
+
+\section{Optimal form of Independent Simulation} \label{sec-optimal-form-of-independent-simulation}
+
+
+$$
+\log I \geq -\log \physicsProb(\dataVariables) - \expDist{\text{KL}\left(\simProb(\domainVariables) || \frac{\trueProb(\dataVariables | \domainVariables,\nullVariables)\simProb(\domainVariables)}{\trueProb(\dataVariables)}\right)}{\simProb(\nullVariables)}  - \expDist{\log \frac{\simProb(\domainVariables)\simProb(\nullVariables)}{\trueProb(\domainVariables,\nullVariables)}}{\simProb(\domainVariables)\simProb(\nullVariables)}  -\beta E(\measuredVariables_\dataVariables=\textbf{1})
+$$
+
 \end{document}
